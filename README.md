@@ -173,6 +173,13 @@ EIN does **not** force a one-size-fits-all hardware rig. Instead, a standardized
 
 ### Flagship Flood Node Reference Design (Tier 1 Production BOM)
 
+> [!TIP]
+> **Complete Production PCB Design Package Available:**
+> - 📄 **Engineering Guide & Verified BOM:** [HARDWARE_GUIDE.md](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/HARDWARE_GUIDE.md)
+> - 📐 **Interactive Schematic Diagram:** [schematic_diagram.svg](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/schematic_diagram.svg)
+> - 🖥️ **2D Board Layout Preview:** [pcb_layout_preview.svg](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/pcb_layout_preview.svg)
+> - 🗂️ **KiCad 7/8 Project Files:** [hardware/flood_node_pcb/](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/) (`.kicad_pro`, `.kicad_sch`, `.kicad_pcb`)
+
 | Component | Part / Model | Interface | Unit Cost (INR) | Function |
 | :--- | :--- | :--- | :---: | :--- |
 | **Microcontroller** | ESP32-S3-WROOM-1 (16MB Flash, 8MB PSRAM) | I2C, SPI, UART, ADC | ₹380 | Dual-core processing & TinyML int8 runtime |

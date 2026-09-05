@@ -1,0 +1,247 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 900" width="100%" height="100%" style="background-color:#0b0f14; font-family:'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;">
+  <defs>
+    <!-- PCB FR4 Core Color -->
+    <linearGradient id="pcbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e3d24"/>
+      <stop offset="100%" stop-color="#062113"/>
+    </linearGradient>
+    <!-- Copper/Gold ENIG Pad -->
+    <linearGradient id="enigGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5d77f"/>
+      <stop offset="100%" stop-color="#c99e32"/>
+    </linearGradient>
+    <!-- IC Package Metallic/Epoxy -->
+    <linearGradient id="icGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a2e33"/>
+      <stop offset="100%" stop-color="#181a1d"/>
+    </linearGradient>
+    <!-- RF Shield Can -->
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cfd8dc"/>
+      <stop offset="100%" stop-color="#90a4ae"/>
+    </linearGradient>
+    <!-- Screw Terminal Plastic Body -->
+    <linearGradient id="termGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#155724"/>
+      <stop offset="100%" stop-color="#28a745"/>
+    </linearGradient>
+    <filter id="pcbShadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="10" stdDeviation="15" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <!-- Title / Dimensions Reference Header -->
+  <text x="50" y="40" fill="#58a6ff" font-size="20" font-weight="700">EIN FLOOD NODE — 4-LAYER PCB TOP-DOWN LAYOUT PREVIEW</text>
+  <text x="50" y="62" fill="#8b949e" font-size="13">Dimensions: 100 mm × 80 mm | Scale 10:1 (1000px × 800px) | IP66 Enclosure Form Factor</text>
+
+  <!-- PCB BOARD OUTLINE (1000 x 800) -->
+  <g transform="translate(50, 80)" filter="url(#pcbShadow)">
+    <!-- Board Base (FR-4 Solder Mask Dark Green) -->
+    <rect x="0" y="0" width="1000" height="800" rx="25" fill="url(#pcbGrad)" stroke="#2ea043" stroke-width="2"/>
+
+    <!-- Copper Ground Pour Hatch Hint -->
+    <rect x="15" y="15" width="970" height="770" rx="15" fill="none" stroke="#238636" stroke-width="1" stroke-dasharray="8,8" opacity="0.4"/>
+
+    <!-- 4x M3 Mounting Holes (Corner Screws at 5mm, 5mm) -->
+    <!-- Top-Left -->
+    <circle cx="50" cy="50" r="30" fill="none" stroke="url(#enigGrad)" stroke-width="8"/>
+    <circle cx="50" cy="50" r="16" fill="#0b0f14"/>
+    <!-- Top-Right -->
+    <circle cx="950" cy="50" r="30" fill="none" stroke="url(#enigGrad)" stroke-width="8"/>
+    <circle cx="950" cy="50" r="16" fill="#0b0f14"/>
+    <!-- Bottom-Left -->
+    <circle cx="50" cy="750" r="30" fill="none" stroke="url(#enigGrad)" stroke-width="8"/>
+    <circle cx="50" cy="750" r="16" fill="#0b0f14"/>
+    <!-- Bottom-Right -->
+    <circle cx="950" cy="750" r="30" fill="none" stroke="url(#enigGrad)" stroke-width="8"/>
+    <circle cx="950" cy="750" r="16" fill="#0b0f14"/>
+
+    <!-- Silkscreen Header on Board -->
+    <text x="500" y="45" fill="#ffffff" font-size="17" font-weight="700" text-anchor="middle" letter-spacing="1">EIN FLOOD SENSOR NODE | SIH 2026 PS #26178</text>
+    <text x="500" y="70" fill="#c9d1d9" font-size="13" text-anchor="middle">QUALCOMM INC. | TEAM SWARNIM | REV 1.0-RC1</text>
+
+    <!-- ==================== LEFT EDGE CONNECTORS ==================== -->
+    <!-- J1: Solar Input 2-Pin Terminal Block (x=20, y=100) -->
+    <g id="j1_solar">
+      <rect x="15" y="100" width="70" height="100" rx="6" fill="url(#termGrad)" stroke="#ffffff" stroke-width="1"/>
+      <circle cx="50" cy="125" r="14" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="3"/>
+      <circle cx="50" cy="175" r="14" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="3"/>
+      <text x="50" y="129" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">+</text>
+      <text x="50" y="179" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">-</text>
+      <text x="95" y="145" fill="#ffffff" font-size="13" font-weight="600">J1: SOLAR IN (6-18V)</text>
+    </g>
+
+    <!-- J2: Battery 2-Pin Terminal Block (x=20, y=230) -->
+    <g id="j2_battery">
+      <rect x="15" y="230" width="70" height="100" rx="6" fill="url(#termGrad)" stroke="#ffffff" stroke-width="1"/>
+      <circle cx="50" cy="255" r="14" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="3"/>
+      <circle cx="50" cy="305" r="14" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="3"/>
+      <text x="50" y="259" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">+</text>
+      <text x="50" y="309" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">-</text>
+      <text x="95" y="275" fill="#ffffff" font-size="13" font-weight="600">J2: LiFePO4 (3.2V)</text>
+    </g>
+
+    <!-- J3: JSN-SR04T 4-Pin Terminal (x=20, y=370) -->
+    <g id="j3_ultrasonic">
+      <rect x="15" y="370" width="70" height="150" rx="6" fill="#1b4d3e" stroke="#ffffff" stroke-width="1"/>
+      <circle cx="50" cy="390" r="11" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="2.5"/>
+      <circle cx="50" cy="425" r="11" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="2.5"/>
+      <circle cx="50" cy="460" r="11" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="2.5"/>
+      <circle cx="50" cy="495" r="11" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="2.5"/>
+      <text x="95" y="405" fill="#58a6ff" font-size="13" font-weight="600">J3: JSN-SR04T</text>
+      <text x="95" y="425" fill="#c9d1d9" font-size="11">1: 5V_SW | 2: TRIG</text>
+      <text x="95" y="445" fill="#c9d1d9" font-size="11">3: ECHO | 4: GND</text>
+    </g>
+
+    <!-- J4: Rain Gauge 2-Pin Terminal (x=20, y=550) -->
+    <g id="j4_rain">
+      <rect x="15" y="550" width="70" height="80" rx="6" fill="#1b4d3e" stroke="#ffffff" stroke-width="1"/>
+      <circle cx="50" cy="570" r="11" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="2.5"/>
+      <circle cx="50" cy="610" r="11" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="2.5"/>
+      <text x="95" y="585" fill="#3fb950" font-size="13" font-weight="600">J4: RAIN GAUGE</text>
+      <text x="95" y="605" fill="#c9d1d9" font-size="11">Reed Pulse (0.2mm)</text>
+    </g>
+
+    <!-- J5: Aux I2C / Analog Expansion (x=20, y=660) -->
+    <g id="j5_aux">
+      <rect x="15" y="660" width="70" height="90" rx="4" fill="#21262d" stroke="#ffffff" stroke-width="1"/>
+      <circle cx="50" cy="675" r="8" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="2"/>
+      <circle cx="50" cy="695" r="8" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="2"/>
+      <circle cx="50" cy="715" r="8" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="2"/>
+      <circle cx="50" cy="735" r="8" fill="#0e3d24" stroke="url(#enigGrad)" stroke-width="2"/>
+      <text x="95" y="695" fill="#bc8cff" font-size="13" font-weight="600">J5: AUX I2C / ADC</text>
+      <text x="95" y="715" fill="#c9d1d9" font-size="11">3V3, SDA, SCL, GND</text>
+    </g>
+
+    <!-- ==================== POWER REGULATION BLOCK (Top-Left) ==================== -->
+    <!-- U6: BQ24650 MPPT IC -->
+    <rect x="220" y="110" width="80" height="80" rx="4" fill="url(#icGrad)" stroke="#e3b341" stroke-width="1.5"/>
+    <text x="260" y="145" fill="#e3b341" font-size="11" font-weight="700" text-anchor="middle">U6</text>
+    <text x="260" y="165" fill="#ffffff" font-size="10" text-anchor="middle">BQ24650</text>
+    <text x="260" y="180" fill="#8b949e" font-size="9" text-anchor="middle">MPPT</text>
+
+    <!-- L1: Inductor for Buck Charger -->
+    <rect x="320" y="115" width="70" height="70" rx="8" fill="#181a1d" stroke="#d29922" stroke-width="2"/>
+    <text x="355" y="155" fill="#d29922" font-size="12" font-weight="700" text-anchor="middle">L1</text>
+    <text x="355" y="172" fill="#8b949e" font-size="10" text-anchor="middle">10µH</text>
+
+    <!-- U7: 3.3V LDO AP2112K -->
+    <rect x="240" y="230" width="60" height="50" rx="3" fill="url(#icGrad)" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="270" y="255" fill="#58a6ff" font-size="11" font-weight="700" text-anchor="middle">U7</text>
+    <text x="270" y="270" fill="#ffffff" font-size="9" text-anchor="middle">3.3V LDO</text>
+
+    <!-- U8: 5V Boost TPS61023 -->
+    <rect x="320" y="230" width="60" height="50" rx="3" fill="url(#icGrad)" stroke="#f0883e" stroke-width="1.5"/>
+    <text x="350" y="255" fill="#f0883e" font-size="11" font-weight="700" text-anchor="middle">U8</text>
+    <text x="350" y="270" fill="#ffffff" font-size="9" text-anchor="middle">5V Boost</text>
+
+    <!-- U9: Load Switch TPS22919 -->
+    <rect x="240" y="310" width="60" height="40" rx="3" fill="url(#icGrad)" stroke="#bc8cff" stroke-width="1.5"/>
+    <text x="270" y="335" fill="#bc8cff" font-size="10" font-weight="700" text-anchor="middle">U9: SW</text>
+
+    <!-- ==================== CENTER: ESP32-S3 CORE MCU ==================== -->
+    <g id="esp32_module">
+      <rect x="440" y="160" width="220" height="340" rx="8" fill="url(#icGrad)" stroke="#ffffff" stroke-width="2"/>
+      <!-- Metal RF Shield on ESP32-S3 -->
+      <rect x="455" y="210" width="190" height="270" rx="6" fill="url(#shieldGrad)" stroke="#546e7a" stroke-width="1.5"/>
+      <text x="550" y="320" fill="#263238" font-size="17" font-weight="800" text-anchor="middle">ESP32-S3</text>
+      <text x="550" y="345" fill="#37474f" font-size="12" font-weight="600" text-anchor="middle">WROOM-1 (16MB)</text>
+      <text x="550" y="370" fill="#455a64" font-size="11" text-anchor="middle">TFLite Micro Engine</text>
+
+      <!-- PCB Antenna Area (Top of Module) -->
+      <rect x="455" y="170" width="190" height="32" rx="3" fill="#1b2a21" stroke="#3fb950" stroke-width="1"/>
+      <text x="550" y="192" fill="#3fb950" font-size="11" font-weight="700" text-anchor="middle">2.4GHz Wi-Fi / BLE ANT</text>
+
+      <!-- Castleated Pads on ESP32 left/right/bottom -->
+      <g fill="url(#enigGrad)">
+        <!-- Left pads -->
+        <rect x="437" y="220" width="12" height="6" rx="1"/>
+        <rect x="437" y="235" width="12" height="6" rx="1"/>
+        <rect x="437" y="250" width="12" height="6" rx="1"/>
+        <rect x="437" y="265" width="12" height="6" rx="1"/>
+        <rect x="437" y="280" width="12" height="6" rx="1"/>
+        <rect x="437" y="295" width="12" height="6" rx="1"/>
+        <rect x="437" y="310" width="12" height="6" rx="1"/>
+        <rect x="437" y="325" width="12" height="6" rx="1"/>
+        <!-- Right pads -->
+        <rect x="651" y="220" width="12" height="6" rx="1"/>
+        <rect x="651" y="235" width="12" height="6" rx="1"/>
+        <rect x="651" y="250" width="12" height="6" rx="1"/>
+        <rect x="651" y="265" width="12" height="6" rx="1"/>
+        <rect x="651" y="280" width="12" height="6" rx="1"/>
+        <rect x="651" y="295" width="12" height="6" rx="1"/>
+        <rect x="651" y="310" width="12" height="6" rx="1"/>
+      </g>
+    </g>
+
+    <!-- ==================== RIGHT ZONE: LORA RF SUBSYSTEM ==================== -->
+    <g id="lora_module">
+      <rect x="740" y="200" width="180" height="260" rx="8" fill="url(#icGrad)" stroke="#39d353" stroke-width="2"/>
+      <rect x="755" y="220" width="150" height="210" rx="6" fill="url(#shieldGrad)" stroke="#546e7a" stroke-width="1.5"/>
+      <text x="830" y="310" fill="#1b5e20" font-size="16" font-weight="800" text-anchor="middle">SX1276</text>
+      <text x="830" y="335" fill="#2e7d32" font-size="12" font-weight="600" text-anchor="middle">LoRa 865-867MHz</text>
+      <text x="830" y="360" fill="#388e3c" font-size="11" text-anchor="middle">+20 dBm (100mW)</text>
+
+      <!-- 50 Ohm RF Coplanar Waveguide Trace (Cyan line to SMA) -->
+      <path d="M 890 235 L 945 155" fill="none" stroke="#58a6ff" stroke-width="5"/>
+      <path d="M 890 235 L 945 155" fill="none" stroke="#79c0ff" stroke-width="2"/>
+
+      <!-- J6: Edge SMA Antenna Bulkhead -->
+      <g id="j6_sma">
+        <rect x="930" y="115" width="55" height="70" rx="4" fill="#d29922" stroke="#ffffff" stroke-width="1.5"/>
+        <circle cx="957" cy="150" r="12" fill="#0b0f14" stroke="url(#enigGrad)" stroke-width="4"/>
+        <circle cx="957" cy="150" r="5" fill="url(#enigGrad)"/>
+        <text x="910" y="105" fill="#58a6ff" font-size="12" font-weight="700">J6: SMA ANT</text>
+      </g>
+    </g>
+
+    <!-- ==================== ON-BOARD SENSORS & PRECISION ICs ==================== -->
+    <!-- U3: SHT31 Ambient Sensor (x=240, y=480) -->
+    <rect x="240" y="480" width="50" height="50" rx="3" fill="url(#icGrad)" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="265" y="505" fill="#58a6ff" font-size="10" font-weight="700" text-anchor="middle">U3</text>
+    <text x="265" y="522" fill="#ffffff" font-size="9" text-anchor="middle">SHT31</text>
+
+    <!-- U4: DS3231 RTC + CR1220 Coin Cell Battery Holder -->
+    <rect x="330" y="480" width="90" height="60" rx="4" fill="url(#icGrad)" stroke="#bc8cff" stroke-width="1.5"/>
+    <text x="375" y="510" fill="#bc8cff" font-size="11" font-weight="700" text-anchor="middle">U4: DS3231</text>
+    <text x="375" y="528" fill="#8b949e" font-size="9" text-anchor="middle">Precision RTC</text>
+    <!-- CR1220 Holder -->
+    <circle cx="375" cy="585" r="30" fill="#181a1d" stroke="url(#enigGrad)" stroke-width="2"/>
+    <text x="375" y="590" fill="#c9d1d9" font-size="10" font-weight="600" text-anchor="middle">CR1220</text>
+
+    <!-- U5: ADS1115 16-Bit ADC (x=240, y=570) -->
+    <rect x="240" y="570" width="60" height="50" rx="3" fill="url(#icGrad)" stroke="#e3b341" stroke-width="1.5"/>
+    <text x="270" y="595" fill="#e3b341" font-size="10" font-weight="700" text-anchor="middle">U5</text>
+    <text x="270" y="610" fill="#ffffff" font-size="9" text-anchor="middle">ADS1115</text>
+
+    <!-- Pushbuttons SW1 (Reset) and SW2 (Boot) -->
+    <rect x="470" y="530" width="40" height="30" rx="3" fill="#21262d" stroke="#ffffff" stroke-width="1"/>
+    <circle cx="490" cy="545" r="7" fill="#f85149"/>
+    <text x="490" y="575" fill="#c9d1d9" font-size="10" text-anchor="middle">RESET</text>
+
+    <rect x="540" y="530" width="40" height="30" rx="3" fill="#21262d" stroke="#ffffff" stroke-width="1"/>
+    <circle cx="560" cy="545" r="7" fill="#388bfd"/>
+    <text x="560" y="575" fill="#c9d1d9" font-size="10" text-anchor="middle">BOOT</text>
+
+    <!-- J7: USB-C Flashing / Console Port (Bottom Center) -->
+    <g id="j7_usbc">
+      <rect x="470" y="735" width="110" height="50" rx="6" fill="#cfd8dc" stroke="#263238" stroke-width="1.5"/>
+      <rect x="490" y="745" width="70" height="30" rx="4" fill="#37474f"/>
+      <text x="525" y="725" fill="#ffffff" font-size="12" font-weight="600" text-anchor="middle">J7: USB-C SERVICE</text>
+    </g>
+
+    <!-- Diagnostic LEDs -->
+    <circle cx="630" cy="540" r="5" fill="#3fb950"/>
+    <text x="642" y="544" fill="#3fb950" font-size="10">PWR</text>
+    <circle cx="630" cy="560" r="5" fill="#58a6ff"/>
+    <text x="642" y="564" fill="#58a6ff" font-size="10">STAT</text>
+    <circle cx="630" cy="580" r="5" fill="#f85149"/>
+    <text x="642" y="584" fill="#f85149" font-size="10">ALERT</text>
+
+    <!-- MicroSD Card Socket on Right Bottom (Optional Black Box Log) -->
+    <rect x="740" y="520" width="160" height="180" rx="4" fill="#181a1d" stroke="#d29922" stroke-width="1.5"/>
+    <text x="820" y="605" fill="#d29922" font-size="13" font-weight="700" text-anchor="middle">MICRO-SD</text>
+    <text x="820" y="625" fill="#8b949e" font-size="10" text-anchor="middle">Black-Box Offline Buffer</text>
+
+  </g>
+</svg>

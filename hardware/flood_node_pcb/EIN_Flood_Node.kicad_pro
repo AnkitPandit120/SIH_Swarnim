@@ -1,0 +1,155 @@
+{
+  "board": {
+    "3dcache": [],
+    "design_settings": {
+      "boundary_edge_to_copper": 0.5,
+      "copper_line_width": 0.2,
+      "copper_mask_clearance": 0.05,
+      "diff_pair_dimensions": [
+        {
+          "gap": 0.25,
+          "via_gap": 0.25,
+          "width": 0.2
+        }
+      ],
+      "drc_exclusions": [],
+      "hole_to_hole": 0.25,
+      "holes_to_copper": 0.3,
+      "microvia_drill": 0.1,
+      "microvia_size": 0.2,
+      "min_copper_edge_clearance": 0.3,
+      "min_hole_clearance": 0.25,
+      "min_hole_to_hole": 0.25,
+      "min_microvia_drill": 0.1,
+      "min_microvia_size": 0.2,
+      "min_silk_clearance": 0.1,
+      "min_text_height": 0.8,
+      "min_through_hole_diameter": 0.3,
+      "min_track_width": 0.15,
+      "min_via_annular_width": 0.15,
+      "min_via_diameter": 0.45,
+      "solder_mask_clearance": 0.05,
+      "solder_mask_min_width": 0.1,
+      "solder_mask_to_copper_clearance": 0.05,
+      "use_height_for_length_calcs": true,
+      "via_drill": 0.3,
+      "via_size": 0.6
+    },
+    "layer_presets": [],
+    "viewports": []
+  },
+  "boards": [],
+  "cvpcb": {
+    "equivalence_files": []
+  },
+  "libraries": {
+    "pinned_footprint_libs": [],
+    "pinned_symbol_libs": []
+  },
+  "meta": {
+    "filename": "EIN_Flood_Node.kicad_pro",
+    "version": 1
+  },
+  "net_settings": {
+    "classes": [
+      {
+        "clearance": 0.2,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_drill": 0.1,
+        "microvia_size": 0.2,
+        "name": "Default",
+        "pcb_color": "rgba(0, 0, 0, 0.000)",
+        "schematic_color": "rgba(0, 0, 0, 0.000)",
+        "track_width": 0.25,
+        "via_drill": 0.3,
+        "via_size": 0.6,
+        "wire_width": 6
+      },
+      {
+        "clearance": 0.35,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_drill": 0.1,
+        "microvia_size": 0.2,
+        "name": "Power",
+        "pcb_color": "rgba(255, 0, 0, 0.800)",
+        "schematic_color": "rgba(255, 0, 0, 0.800)",
+        "track_width": 0.6,
+        "via_drill": 0.4,
+        "via_size": 0.8,
+        "wire_width": 10
+      },
+      {
+        "clearance": 0.4,
+        "diff_pair_gap": 0.25,
+        "diff_pair_via_gap": 0.25,
+        "diff_pair_width": 0.2,
+        "microvia_drill": 0.1,
+        "microvia_size": 0.2,
+        "name": "RF_50R",
+        "pcb_color": "rgba(0, 180, 255, 0.800)",
+        "schematic_color": "rgba(0, 180, 255, 0.800)",
+        "track_width": 0.5,
+        "via_drill": 0.3,
+        "via_size": 0.6,
+        "wire_width": 8
+      }
+    ],
+    "meta": {
+      "version": 3
+    },
+    "net_colors": null
+  },
+  "pcbnew": {
+    "last_paths": {
+      "gencad": "",
+      "idf": "",
+      "netlist": "",
+      "plot": "",
+      "pos": "",
+      "specctra_dsn": "",
+      "step": "",
+      "svg": "",
+      "vrml": ""
+    },
+    "page_type": "A4"
+  },
+  "schematic": {
+    "annotate_start_num": 1,
+    "drawing": {
+      "default_line_thickness": 6,
+      "default_text_size": 50,
+      "field_names": []
+    },
+    "legacy_lib_dir": "",
+    "legacy_lib_list": [],
+    "meta": {
+      "version": 1
+    },
+    "net_format_name": "",
+    "ngspice": {
+      "meta": {
+        "version": 2
+      },
+      "model_mode": 0
+    },
+    "page_type": "A4",
+    "subpart_first_id": 65,
+    "subpart_id_separator": 0
+  },
+  "sheets": [
+    [
+      "9f24cb51-3cf9-4bf9-86eb-c560cfca1f18",
+      ""
+    ]
+  ],
+  "text_variables": {
+    "COMPANY": "Team Swarnim - SIH 2026",
+    "ISSUE_DATE": "2026-09-05",
+    "PROJECT_NAME": "EIN Flagship Flood Node",
+    "REVISION": "v1.0-RC1"
+  }
+}
