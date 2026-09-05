@@ -2,15 +2,16 @@
 
 <div align="center">
 
-[![SIH 2026](https://img.shields.io/badge/SIH_2026-Problem_Statement_178-orange?style=for-the-badge&logo=target)](https://sih.gov.in)
-[![Category](https://img.shields.io/badge/Category-Hardware_%26_Software_Hybrid-blue?style=for-the-badge)](https://sih.gov.in)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![Edge AI](https://img.shields.io/badge/TinyML-TensorFlow_Lite_Micro-FF6F00?style=for-the-badge&logo=tensorflow)](https://www.tensorflow.org/lite/microcontrollers)
-[![Connectivity](https://img.shields.io/badge/Network-LoRaWAN_%7C_Mesh-green?style=for-the-badge&logo=rss)](https://lora-alliance.org)
+[![SIH 2026](https://img.shields.io/badge/SIH_2026-Problem_Statement_26178-orange?style=for-the-badge&logo=target)](https://sih.gov.in)
+[![Organization: Qualcomm](https://img.shields.io/badge/Organization-Qualcomm_Inc.-3253DC?style=for-the-badge&logo=qualcomm)](https://www.qualcomm.com)
+[![Category: Hardware](https://img.shields.io/badge/Category-Hardware-E02424?style=for-the-badge&logo=circuitverse)](https://sih.gov.in)
+[![Theme: Disaster Management](https://img.shields.io/badge/Theme-Disaster_Management-0E9F6E?style=for-the-badge&logo=shield)](https://sih.gov.in)
+[![Edge AI](https://img.shields.io/badge/Edge_AI-ESP32--S3_%7C_Jetson_Orin-FF6F00?style=for-the-badge&logo=nvidia)](https://www.tensorflow.org/lite/microcontrollers)
+[![Connectivity](https://img.shields.io/badge/Network-LoRaWAN_%7C_Sub--GHz-green?style=for-the-badge&logo=rss)](https://lora-alliance.org)
 
-**Decentralized, Solar-Autonomous Edge-AI Sensor Network for Hyper-Local Early Warning & Disaster Resilience Across India**
+**Decentralized, Solar-Autonomous Edge-AI Multi-Hazard Early Warning Network for India**
 
-[Explore Architecture](#-system-architecture) • [How It Works](#-how-it-works) • [Hardware & BOM](#-hardware-components--bill-of-materials) • [TinyML Pipeline](#-software-and-tinyml-pipeline) • [Quickstart](#-getting-started)
+[System Architecture](#-high-level-system-architecture) • [Two-Tier Compute](#-two-tier-compute-architecture) • [Modular Node Profiles](#-modular-hazard-node-profiles) • [Hardware & BOM](#-hardware-components--bill-of-materials) • [Resilient Comms](#-resilient-communication-architecture) • [Quickstart](#-getting-started)
 
 ---
 
@@ -18,198 +19,217 @@
 
 ## 📌 Executive Summary
 
-India experiences severe and recurring environmental hazards: urban waterlogging, flash floods, Himalayan landslides, forest fires in Uttarakhand and the Northeast, toxic industrial leaks, and hazardous AQI smog episodes. While central agencies like **NDMA, IMD, CPCB, and ISRO** provide vital macro-level forecasts, disaster impact is intensely localized. 
+India experiences catastrophic, rapidly escalating environmental hazards: urban flash floods, Himalayan landslides, forest fires in Uttarakhand and the Northeast, toxic industrial leaks, and dangerous winter smog. While national agencies (**NDMA, IMD, CPCB, and ISRO**) provide vital macro-level meteorological forecasting, disasters strike at hyper-local coordinates where terrestrial communication and power infrastructure fail first.
 
-The **Environmental Intelligence Network (EIN)** bridges this critical "last-mile detection gap." EIN is a decentralized mesh of ruggedized, solar-powered, AI-equipped IoT nodes. Operating on the principle of **"Sense Locally, Decide Locally, Transmit Only What Matters"**, each node runs ultra-compact **TinyML** models on-device (ESP32/ARM Cortex-M). It classifies hazard precursors at the point of inception within milliseconds, transmitting lightweight, encrypted actionable alerts via **LoRaWAN / Mesh Relay**—even when terrestrial cellular towers, fiber backhauls, and power grids fail.
+The **Environmental Intelligence Network (EIN)** bridges this critical last-mile detection gap. Built for **SIH Problem Statement #26178 (Qualcomm Inc.)**, EIN is a decentralized network of autonomous, solar-powered sensor nodes that operates on a resilient founding principle:
+
+> **Sense locally → Process locally → Decide locally → Act locally → Communicate intelligently → Coordinate centrally**
+
+Instead of blindly streaming heavy raw sensor data over fragile cellular links, each node runs on-device preprocessing, sensor fusion, and **Edge AI / deterministic safety logic**. If a hazard threshold or anomaly pattern is confirmed, the node actuates immediate local alarms (sirens/beacons) and transmits an ultra-compact **32-byte actionable alert packet** over **Sub-GHz LoRa / LoRaWAN** to regional command centers and community channels.
 
 ---
 
-## 📋 SIH 2026 Problem Statement Alignment
+## 📋 SIH 2026 Problem Alignment
 
-| Attribute | Details |
+| Attribute | Official Problem Details |
 | :--- | :--- |
-| **Problem Statement No.** | **178** (SIH 2026) |
+| **Problem Statement ID** | **26178** (Listed under SIH PS #178) |
 | **Problem Title** | AI Environmental Early-Warning Network |
-| **Domain Bucket** | Disaster Management / Environment, Climate & Smart Cities |
-| **Target End-Users** | NDMA, State Disaster Management Authorities (SDMAs), Municipal Corporations, Forest Departments, Vulnerable Communities |
-| **Core Value Proposition** | Sub-second offline threat classification + Multi-hazard infrastructure + Zero-grid autonomous survival |
+| **Organization** | **Qualcomm Inc.** |
+| **Category** | **Hardware** (IoT Transduction, Embedded Systems & Edge AI) |
+| **Theme** | **Disaster Management** |
+| **Target Stakeholders** | NDMA, State Disaster Management Authorities (SDMAs), Municipal Corporations, Forest Departments, Vulnerable Communities |
+| **Core Value Proposition** | Sub-second offline threat classification + Multi-hazard modular rigs + Zero-grid solar autonomy |
 
 ---
 
-## 📊 Key Highlights & Metrics
+## 📊 Key Highlights & Technical Metrics
 
-```
+```text
   ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐
-  │   < 1.2 sec     │   │   15+ km        │   │    72+ hrs      │   │   < ₹3,200      │
-  │ On-Device Infer │   │ LoRa Mesh Reach │   │ Solar Autonomy  │   │  Per-Node BOM   │
+  │   < 120 ms      │   │   12–15 km      │   │    72+ hrs      │   │   ~₹3,360       │
+  │ On-Device Infer │   │ Sub-GHz Reach   │   │ Zero-Sun Backup │   │  BOM (Field)    │
   └─────────────────┘   └─────────────────┘   └─────────────────┘   └─────────────────┘
 ```
 
-- **⚡ Offline Autonomy:** Continues sensing and running neural-network inference during total grid and internet blackouts.
-- **📡 Bandwidth Efficiency:** 99.8% reduction in network traffic by streaming only 32-byte binary alert packets instead of continuous raw telemetry.
-- **🛡️ Tri-Tier Resilience:** LoRaWAN Primary $\rightarrow$ Multi-hop Mesh Relay $\rightarrow$ Local Flash Store-and-Forward buffer.
-- **🔄 Multi-Hazard Single Rig:** Monitors floods, wildfires, air toxicity, landslides, and gas leaks on one shared platform.
+- **⚡ Zero-Grid Autonomy:** Custom MPPT solar harvesting paired with thermally stable **LiFePO4 chemistry** (survives 0°C to 60°C Indian field temperatures).
+- **🛡️ Deterministic Safety + AI Ensemble:** Parallel execution of hard physical safety rules alongside quantized neural models eliminates false negatives while providing transparent decision explainability.
+- **📡 Bandwidth & Radio Discipline:** 99.8% reduction in channel congestion by streaming event-driven 32-byte binary payloads instead of round-the-clock sensor telemetry.
+- **🔄 Graceful Degradation:** Full Online $\rightarrow$ Peer LoRa Relay $\rightarrow$ Local Flash Store-and-Forward $\rightarrow$ Local Audio Actuation if completely severed.
 
 ---
 
-## ⚖️ Innovation & Competitive Differentiation
+## ⚖️ Competitive Differentiation
 
-| Parameter | Traditional Centralized Systems | Standard Cloud IoT Gateways | **EIN (Our Solution)** |
+| Parameter | Centralized Remote Sensing (IMD/ISRO) | Generic Cloud IoT Solutions | **EIN (Our Architecture)** |
 | :--- | :--- | :--- | :--- |
-| **Inference Location** | Central Cloud / Supercomputer | Cloud Servers | **On-Device (Edge TinyML)** |
-| **Grid Failure Resilience** | ❌ Fails when local grid/towers drop | ❌ Requires active cellular link | **✅ 100% Autonomous (Solar + Li-ion)** |
-| **Detection Latency** | Minutes to Hours (batch cycles) | 10 – 30 seconds | **< 1.2 seconds (Immediate)** |
-| **Bandwidth Demand** | Continuous high data uplink | Continuous sensor telemetry | **Event-Driven 32-byte Alerts Only** |
-| **False-Positive Handling** | Threshold alerts cause alarm fatigue | Rule-based heuristics | **Confidence-Scored Neural Fusion** |
-| **Infrastructure Silos** | Separate flood gauges, fire towers | Fragmented single-purpose rigs | **Unified Multi-Hazard Sensor Fusion** |
+| **Inference Location** | Central Server / Supercomputer | Remote Cloud Servers | **On-Device (Dual-Tier Edge AI)** |
+| **Grid & Tower Blackout** | Fails when local power/fiber fails | Disconnects when cellular link drops | **100% Autonomous (Solar + LiFePO4 + LoRa)** |
+| **Detection-to-Alert** | 15 minutes to several hours | 10 – 30 seconds | **< 1.2 seconds (Immediate local siren)** |
+| **Network Overhead** | High-bandwidth periodic ingest | Continuous sensor telemetry streams | **32-byte Event Packets + Health Heartbeats** |
+| **False-Alarm Resistance** | Single-sensor threshold trips | Heuristic static rules | **Multi-Sensor Fusion + Anomaly Autoencoders** |
+| **Deployment Hardware** | Multi-lakh meteorological stations | Single-purpose siloed gadgets | **Modular Open-Standard Rig (~₹3,360/node)** |
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ High-Level System Architecture
 
 ```mermaid
 graph TD
-    subgraph SENSE["1. Sensor & Transduction Layer"]
-        S1["Ultrasonic / Water Level"]
-        S2["Rain Gauge (Tipping Bucket)"]
-        S3["IR Flame & Smoke (Photoelectric)"]
-        S4["Optical PM2.5 / PM10 (Air Quality)"]
-        S5["MQ-Series Combustible/Toxic Gas"]
-        S6["MEMS 3-Axis Tilt & Soil Moisture"]
+    subgraph SENSE["1. Environmental Sensing Layer"]
+        S1["Water Level (Ultrasonic JSN-SR04T)"]
+        S2["Rain Gauge (Tipping Bucket Reed)"]
+        S3["Flame IR & Photoelectric Smoke"]
+        S4["Optical PM2.5 / PM10 (PMS5003)"]
+        S5["Electrochemical Gas (MQ-Series)"]
+        S6["3-Axis MEMS Inclinometer & Soil Moisture"]
     end
 
-    subgraph EDGE["2. Edge AI & TinyML Processing (ESP32-S3)"]
-        ADC["Continuous Sampling & Signal Conditioning"]
-        FUS["Cross-Sensor Fusion Engine"]
-        TFL["TensorFlow Lite Micro Engine\n(int8 Quantized Models)"]
-        CONF["Confidence Scorer & Severity Gate (>85%)"]
-        ACT["Local Actuation (Piezo Siren / LED Beacon)"]
+    subgraph EDGE["2. Edge Intelligence Layer (Tier 1: ESP32-S3 / Tier 2: Jetson)"]
+        PWR["Dynamic Sensor Power Gating (TPS22919)"]
+        PRE["Noise Filtering, Calibration & Unit Conversion"]
+        FUS["Temporal Cross-Sensor Fusion Engine"]
+        subgraph DECISION["Parallel Decision Engine"]
+            RULE["Deterministic Safety Rules\n(Instant Physical Thresholds)"]
+            TFL["TinyML Quantized int8 Model\n(Anomaly & Threat Classification)"]
+        end
+        CONF["Confidence Score & Severity Arbitrator"]
+        ACT["Local Hazard Siren / Audio Beacon Actuator"]
     end
 
-    subgraph COMM["3. Resilient Communication Mesh"]
-        LORA["Primary: LoRaWAN (865-867 MHz IN865)"]
-        MESH["Fallback 1: Peer-to-Peer Mesh Hop (ESP-NOW / LoRa)"]
-        FLASH["Fallback 2: SPI Flash Store-and-Forward Queue"]
-        GATE["Solar LoRaWAN Gateway / Edge Hub"]
+    subgraph COMM["3. Resilient Communication Layer"]
+        LORA["Primary: LoRaWAN Star Network (865-867 MHz IN865)"]
+        PEER["Fallback: LoRa Ad-Hoc Peer Relay (Multi-Hop Hop Count)"]
+        FLASH["Offline Store-and-Forward (SPI Flash / MicroSD Queue)"]
+        GATE["Solar LoRa Gateway (Linux / RPi-class Concentrator)"]
     end
 
-    subgraph CLOUD["4. Command Layer & Ingestion Engine"]
-        BROKER["MQTT / HTTPS Ingestion Broker"]
-        CORR["Multi-Node Spatial Correlation Engine"]
-        GIS["Geo-Spatial GIS Risk Mapping (PostGIS/Leaflet)"]
-        API["CAP / NDMA OpenAPI Disseminator"]
+    subgraph CLOUD["4. Command Center & Ingestion Engine"]
+        INGEST["MQTT / HTTPS Message Ingestion Broker"]
+        CORR["Multi-Node Spatial-Temporal Correlation Engine"]
+        GIS["Geo-Spatial Dynamic Risk Mapper (PostGIS + Leaflet)"]
+        DISPATCH["Alert Dispatcher (NDMA Common Alerting Protocol - CAP)"]
     end
 
-    subgraph DISPATCH["5. Actionable Public & Agency Alerting"]
-        SMS["Cell Broadcast / SMS Gateway"]
-        APP["First Responder Mobile Dashboard"]
-        PORTAL["Authority Control Room Web Portal"]
-        SIREN["Community Solar Audio Sirens"]
+    subgraph OUTPUT["5. Actionable Multi-Channel Warning"]
+        DASH["District Control Room Web Dashboard"]
+        SMS["Geo-Fenced Cell Broadcast / SMS Alerts"]
+        MOBILE["Civic First-Responder Mobile App"]
     end
 
-    SENSE --> ADC --> FUS --> TFL --> CONF
+    SENSE --> PWR --> PRE --> FUS
+    FUS --> RULE
+    FUS --> TFL
+    RULE --> CONF
+    TFL --> CONF
     CONF -->|Critical Severity| ACT
-    CONF -->|Actionable Alert Packet| COMM
+    CONF -->|Compact Event Packet| LORA
+    CONF -.->|Gateway Obstructed| PEER
+    CONF -.->|Total RF Loss| FLASH
     LORA --> GATE
-    MESH --> GATE
+    PEER --> GATE
     FLASH -.->|Link Restored| GATE
-    GATE --> BROKER --> CORR --> GIS --> API
-    API --> SMS
-    API --> APP
-    API --> PORTAL
-    API --> SIREN
+    GATE --> INGEST --> CORR --> GIS --> DISPATCH
+    DISPATCH --> DASH
+    DISPATCH --> SMS
+    DISPATCH --> MOBILE
 ```
 
 ---
 
-## ⚙️ How It Works: End-to-End Threat Lifecycle
+## 💻 Two-Tier Compute Architecture
 
-```mermaid
-sequenceDiagram
-    autonumber
-    participant E as Environment
-    participant S as Sensor Rig
-    participant AI as Edge MCU (TinyML)
-    participant N as LoRa Mesh Network
-    participant G as Cloud / Gateway
-    participant A as Authorities & Public
+To balance cost, power consumption, and advanced AI requirements across vast geographic corridors, EIN implements a **tiered compute paradigm**:
 
-    E->>S: Flash flood waters rise + torrential downpour
-    S->>AI: Continuous raw ADC/I2C signals (10 Hz)
-    Note over AI: Feature extraction: Rate-of-Rise + Moisture Saturation
-    AI->>AI: Run TFLite Micro Quantized Classifier
-    Note over AI: Result: 'FLASH_FLOOD_PRECURSOR' (Confidence: 94.2%)
-    AI-->>S: Activate local hazard audio beacon
-    AI->>N: Broadcast 32-byte Binary Alert Packet
-    alt Direct Gateway Available
-        N->>G: LoRaWAN Uplink
-    else Gateway Blocked / Down
-        N->>N: Hop across adjacent peer nodes (Mesh Relay)
-        N->>G: Upward relay via nearest connected node
-    end
-    G->>G: Correlate with upstream rain gauge nodes
-    G->>A: Dispatch Geo-fenced Early Warning (SMS, App, NDMA CAP)
-    Note over A: Evacuation initiated 35 minutes before crest arrives
+```text
+  ┌──────────────────────────────────────────────┐     ┌──────────────────────────────────────────────┐
+  │         TIER 1: ULTRA-LOW-POWER NODE         │     │         TIER 2: HIGH-COMPUTE EDGE HUB        │
+  ├──────────────────────────────────────────────┤     ├──────────────────────────────────────────────┤
+  │ • Compute: ESP32-S3 Dual-Core Xtensa LX7     │     │ • Compute: NVIDIA Jetson Orin Nano / Linux   │
+  │ • Power: 3.3V, < 15 µA Deep-Sleep Current    │     │ • Power: 10W–15W, Active MPPT Solar Array    │
+  │ • Logic: int8 TinyML + Deterministic Rules   │     │ • Logic: Multi-Stream Vision + Complex Fusion│
+  │ • Deployment: Thousands across rivers/slopes │     │ • Deployment: Critical bridges, dams & hubs  │
+  │ • Unit BOM: ~₹3,360 ($40 USD)                │     │ • Role: Heavy AI + Regional Cluster Gateway  │
+  └──────────────────────────────────────────────┘     └──────────────────────────────────────────────┘
 ```
+
+---
+
+## 🧩 Modular Hazard Node Profiles
+
+EIN does **not** force a one-size-fits-all hardware rig. Instead, a standardized baseboard hosts interchangeable sensor daughter modules based on terrain:
+
+| Node Type | Primary Sensors | Typical Deployment Site | Key Target Event |
+| :--- | :--- | :--- | :--- |
+| **🌊 Flood Node (Flagship Prototype)** | Waterproof Ultrasonic (JSN-SR04T) + Tipping-Bucket Rain Gauge + SHT31 | River banks, bridges, culverts, urban stormwater drains | Flash floods, river crest surges, cloudburst runoff |
+| **🔥 Forest Fire Node** | IR Flame Sensor + Photoelectric Smoke + Optical PM2.5 + Ambient Temp/RH | Forest perimeters, wildlife sanctuaries, fire-break ridges | Wildfire inception, smoldering biomass, canopy flame |
+| **⛰️ Landslide Node** | Capacitive Soil Moisture + 3-Axis MEMS Inclinometer (MPU6050) + Vibration | Hillside road-cuts, Ghat roads, Himalayan slopes | Slope tilt shift, earth saturation, debris flow precursors |
+| **🏭 Industrial & Air Quality** | Optical PMS5003 + Multi-Gas Array (MQ-135, MQ-7, CO, Ammonia) | Chemical industrial estates, highway intersections, dense slums | Toxic gas release, hazardous AQI smog episodes |
+| **💧 Water Quality Node** | Industrial pH Probe + Turbidity + TDS / Electrical Conductivity | Reservoirs, lakes, industrial effluent discharge points | Chemical dumping, post-flood potable water contamination |
 
 ---
 
 ## 🧰 Hardware Components & Bill of Materials
 
-Engineered with off-the-shelf, cost-optimized, and ruggedized components suitable for mass deployment across rural and forested terrain.
+### Flagship Flood Node Reference Design (Tier 1 Production BOM)
 
-| Category | Component | Model / Part No. | Interface | Estimated Cost (INR) | Primary Function |
-| :--- | :--- | :--- | :--- | :---: | :--- |
-| **Compute / MCU** | Dual-core 32-bit Xtensa LX7 MCU + AI Vector Instructions | ESP32-S3-WROOM-1 | I2C, SPI, UART, ADC | ₹380 | On-device TinyML inference & power management |
-| **Connectivity** | Ultra Long Range LoRa Transceiver | Semtech SX1262 (865-867 MHz) | SPI | ₹420 | 10–15 km node-to-gateway telemetry |
-| **Flood Sensing** | Weatherproof Ultrasonic Sensor | JSN-SR04T (Waterproof) | UART / GPIO | ₹280 | Non-contact water level / river stage profiling |
-| **Precipitation** | Tipping Bucket Rain Gauge Module | Optical/Reed Switch Gauge | Digital Pulse | ₹350 | Rainfall intensity and accumulation tracking |
-| **Fire & Smoke** | Dual-Spectrum Optical + Photoelectric | MQ-2 + Flame IR Phototransistor | Analog / Digital | ₹190 | Wildfire flame detection & particulate smoke |
-| **Air Quality** | Laser Scattering Particulate Matter | Plantower PMS5003 / SDS011 | UART (Serial) | ₹680 | Real-time PM2.5, PM10 atmospheric AQI |
-| **Toxic Gas** | Electrochemical Gas Detector | MQ-135 / MQ-7 | Analog ADC | ₹130 | Industrial ammonia, CO, benzene, smoke leaks |
-| **Landslide** | 3-Axis MEMS Accelerometer / Inclinometer | MPU-6050 / ADXL345 | I2C | ₹120 | Slope shift, earth tremors, tilt angle warning |
-| **Soil State** | Corrosion-Resistant Soil Moisture | Capacitive V1.2 Probe | Analog ADC | ₹70 | Ground water saturation index |
-| **Power Plant** | Monocrystalline Solar Panel (6V 3W) | 145mm x 145mm Waterproof | DC In | ₹240 | Off-grid harvesting during daylight hours |
-| **Energy Buffer** | 18650 Li-ion Cells (2S 5200mAh) + BMS | Samsung/LG 2600mAh x 2 | TP4056 + Protection | ₹310 | 72-hour sustained runtime during zero sunlight |
-| **Enclosure** | Weatherproof Polycarbonate Box | IP66 Cable Gland Enclosure | Hardware | ₹190 | Ingress protection against monsoons and heat |
-| **Total Node Cost**| — | — | — | **~₹3,360** | **Ready for mass public procurement** |
+| Component | Part / Model | Interface | Unit Cost (INR) | Function |
+| :--- | :--- | :--- | :---: | :--- |
+| **Microcontroller** | ESP32-S3-WROOM-1 (16MB Flash, 8MB PSRAM) | I2C, SPI, UART, ADC | ₹380 | Dual-core processing & TinyML int8 runtime |
+| **Sub-GHz Transceiver** | Semtech SX1276 / SX1262 (865–867 MHz IN865) | SPI + DIO0 IRQ | ₹420 | 12–15 km line-of-sight LoRa telemetry |
+| **Water Level Transducer** | JSN-SR04T Waterproof Ultrasonic Sensor | GPIO Trigger / Echo | ₹280 | Non-contact river and drain stage monitoring |
+| **Precipitation Sensor** | Optical / Reed Tipping Bucket Rain Gauge | GPIO Hardware Interrupt | ₹350 | Real-time rainfall rate (mm/hr accumulation) |
+| **Precision Analog ADC** | Texas Instruments ADS1115 (16-bit 4-Channel) | I2C (0x48) | ₹140 | High-accuracy sensor conditioning & battery sense |
+| **Real-Time Clock (RTC)** | Analog Devices DS3231 (TCXO Industrial Temp) | I2C (0x68) | ₹110 | Exact timestamping during total network blackouts |
+| **Environmental Context** | Sensirion SHT31-DIS-B | I2C (0x44) | ₹120 | Ambient temperature & relative humidity reference |
+| **Solar MPPT Controller** | TI BQ24650 / LTC4015 Synchronous Buck Charger | Circuit | ₹260 | High-efficiency MPPT harvesting in overcast skies |
+| **Energy Storage Pack** | 18650 LiFePO4 Battery Cells (3.2V 3200mAh x 2) | Battery Rail | ₹480 | Thermal safety up to 60°C; 2,000+ lifecycle cycles |
+| **Photovoltaic Collector**| 6V 5W Monocrystalline Waterproof Panel | DC Jack | ₹290 | Autonomous daylight energy replenishment |
+| **Power Gating Switches** | TI TPS22919 Load Switches with Quick Discharge | GPIO Controlled | ₹70 | Completely isolates unneeded sensors during sleep |
+| **Ruggedized Enclosure** | Polycarbonate IP66 Case with PG9 Cable Glands | Mechanical | ₹210 | Weatherproof seal against monsoon deluge and dust |
+| **Total Node Cost** | — | — | **~₹3,360** | **Viable for mass panchayat-level procurement** |
 
 ---
 
-## 🧠 Software and TinyML Pipeline
+## 🧠 Dual-Stage Safety & TinyML Pipeline
 
-```
-Raw Multi-Sensor Stream  ──>  Sliding Window Normalization  ──>  Feature Extraction  ──>  Quantized int8 TFLite Micro  ──>  Confidence Scoring  ──>  Binary Packetizer
+To ensure human-life safety, **EIN never relies on machine learning as an opaque single point of failure**.
+
+```text
+                  Multi-Sensor Stream (Level, Rain, Temp, Gas)
+                                       │
+                                       ▼
+                       Preprocessing & Noise Calibration
+                                       │
+                    ┌──────────────────┴──────────────────┐
+                    ▼                                     ▼
+        Deterministic Safety Rules              Quantized TinyML Model
+        (Strict Physical Thresholds)            (Anomaly & Trend Classifier)
+                    │                                     │
+                    └──────────────────┬──────────────────┘
+                                       ▼
+                         Dual-Gated Decision Engine
+                                       │
+             ┌─────────────────────────┴─────────────────────────┐
+             ▼                                                   ▼
+     Local Hazard Actuation                              Actionable Packet
+   (Direct Piezo Siren / LED)                    (32-Byte LoRa Binary Broadcast)
 ```
 
-### On-Device Model Architecture
-- **Inference Runtime:** TensorFlow Lite Micro running on bare-metal FreeRTOS.
-- **Model Quantization:** Post-Training Quantization (PTQ) converting `float32` weights to full `int8` representation.
-- **Memory Footprint:**
-  - **RAM Usage (Arena):** `< 42 KB`
-  - **Flash Footprint:** `< 165 KB`
-  - **Inference Time:** `65 ms – 140 ms` on 240 MHz ESP32-S3.
-
-### Model Ensembles by Hazard Type
-```
-├── models/
-│   ├── flood_predictor/         # Temporal 1D-CNN + Gated Recurrent Unit (water surge rate)
-│   ├── wildfire_detector/       # Multi-variable gradient boosted tree (temp + humidity + CO + IR)
-│   ├── landslide_precursor/     # Anomaly Autoencoder on MEMS tilt + soil saturation rate
-│   └── industrial_leak/         # Multi-gas threshold & trajectory classification
-```
+1. **Deterministic Safety Rules:** If water level exceeds `CRITICAL_DATUM` or rate-of-rise exceeds `20 cm/hr`, the alarm triggers unconditionally—preventing algorithmic blind spots.
+2. **Quantized Neural Classifiers:** A lightweight 1D-CNN + GRU model (`< 42 KB RAM`, `< 165 KB Flash`) evaluates temporal rate-of-change across rainfall, moisture, and level to predict flood crests **30–45 minutes in advance**.
 
 ---
 
 ## 📦 Ultra-Compact 32-Byte Alert Packet Structure
 
-To operate efficiently over high-spreading-factor LoRaWAN (SF12) and mesh relays, telemetry is serialized into an ultra-lean binary struct:
+Transmitting verbose JSON over sub-GHz LoRaWAN drains battery and congests regional frequencies. EIN serializes all threat intelligence into a high-density 32-byte binary struct:
 
-```
+```text
  0                   1                   2                   3
  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|   Sync 0xAA   |  Protocol Ver |         Node ID (16-bit)      |
+|   Sync (0xAA) | Protocol Ver  |       Node ID (16-bit)        |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 | Hazard Code   | Severity (1-5)| Confidence %  | Battery Volts |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -219,50 +239,63 @@ To operate efficiently over high-spreading-factor LoRaWAN (SF12) and mesh relays
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                       Unix Epoch Timestamp                    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|        Primary Metric Value   |      Secondary Metric Value   |
+|     Primary Metric (Int16)    |    Secondary Metric (Int16)   |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|          Mesh Hop Count       |       CRC-16 Checksum         |
+|   Relay Hop   |  Model Ver ID |        CRC-16 Checksum        |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+```
+
+### Actionable Alert Payload Example (Human-Readable Conversion)
+```json
+{
+  "node_id": "EIN-FLD-0042",
+  "hazard": "FLASH_FLOOD",
+  "severity": "CRITICAL",
+  "risk_score": 0.94,
+  "confidence": 0.96,
+  "location": { "lat": 26.1445, "lon": 91.7362 },
+  "evidence": {
+    "water_level_cm": 348,
+    "rate_of_rise_cm_min": 4.6,
+    "rainfall_intensity_mm_hr": 72.4,
+    "upstream_corroboration": true
+  },
+  "recommended_action": "TRIGGER_ZONE_B_EVACUATION_ASSESSMENT",
+  "timestamp": "2026-09-05T19:40:12Z"
+}
 ```
 
 ---
 
-## 🗺️ Deployment Roadmap for India
+## 📡 Resilient Communication Architecture
+
+1. **Normal State (LoRaWAN Star Topology):** The node uplinks directly to a regional solar-powered LoRaWAN Gateway operating on Indian ISM bands (`IN865–867 MHz`).
+2. **Gateway Obstructed (LoRa Ad-Hoc Peer Relay):** If the primary gateway is damaged or masked by terrain, the node shifts to a peer-to-peer relay mode, bouncing packets across neighboring nodes (with hop counters and de-duplication) until reaching a functioning gateway.
+3. **Total Backhaul Outage (Store-and-Forward):** Alerts and historical data are stored in on-board SPI Flash / MicroSD with cryptographic verification and backoff retries until the gateway link is restored.
+
+---
+
+## 🗺️ Deployment Roadmap & National Scale
 
 ```mermaid
 gantt
-    title EIN Scale-Up Strategy (SIH 2026 to National Scale)
+    title EIN Phased Scaling Strategy (SIH 2026 to National Scale)
     dateFormat  YYYY-MM
-    section Prototype & Lab
-    Hardware Schematics & Bench Testing   :done, 2026-08, 2026-09
-    TinyML Model Training & Benchmarking :active, 2026-09, 2026-10
+    section Prototype Validation
+    Hardware Schematics, BOM Freeze & Bench Testing :done, 2026-08, 2026-09
+    TinyML Model Training & Simulation Demo         :active, 2026-09, 2026-10
     section Field Pilot
-    15-Node River/Forest District Pilot  :2026-11, 2027-02
-    Monsoon Stress Testing               :2027-03, 2027-05
-    section Scale & Integration
-    State Disaster Management Rollout    :2027-06, 2027-12
-    Pan-India NDMA / CAP Feed Integration:2028-01, 2028-12
+    15-Node River/Forest District Pilot (Assam/Uttarakhand) :2026-11, 2027-02
+    Monsoon Stress & Flood Ingress Testing          :2027-03, 2027-05
+    section State Scale
+    State Disaster Management Authority (SDMA) Rollout :2027-06, 2027-12
+    Pan-India NDMA CAP Integration                  :2028-01, 2028-12
 ```
 
-- **Phase 0 (Prototype - Current):** Single working prototype node with edge-AI sensor fusion, LoRa connectivity, and Web GIS dashboard.
-- **Phase 1 (District Pilot - Months 4–8):** 15–25 nodes deployed along a vulnerable river basin (e.g., Brahmaputra tributary or Yamuna stretch) and forest fringe.
-- **Phase 2 (District Scale-Up - Months 9–14):** Complete district deployment connected with District Disaster Management Authority (DDMA).
-- **Phase 3 (State Rollout - Year 2):** Integration with State Emergency Operations Centres (SEOC) and Indian Meteorological Department (IMD) telemetry.
-
----
-
-## 🛡️ Risk Assessment & Mitigation Matrix
-
-> [!NOTE]
-> Designed to operate reliably in the harshest Indian climatic conditions from 48°C Thar desert heat to Himalayan sub-zero monsoons.
-
-| Threat Factor | Impact | Engineering Mitigation |
-| :--- | :--- | :--- |
-| **Extended Monsoon Cloud Cover** | Low solar generation | Power duty-cycling: Sleep current `< 15 µA`; 72+ hour battery reserve |
-| **Flooding of Node Itself** | Hardware submergence | IP68 potting of lower modules, pole-elevated mast mounting (3–5m) |
-| **Sensor Calibration Drift** | False positives over time | Dynamic self-calibration baselining + auto-zeroing via cloud peer-comparison |
-| **Physical Vandalism / Wildlife** | Mast destruction | Tamper detection using internal MEMS accelerometer; hidden mast antennas |
-| **RF Channel Jamming / Obstruction** | Alert transmission loss | Sub-GHz LoRa frequency agility + Multi-hop mesh relay around obstacles |
+- **Phase 0 (Prototype - Present):** Single fully functional ESP32-S3 flood/environmental node with local buzzer, LoRa radio, and live GIS map.
+- **Phase 1 (District Pilot - Months 4–8):** 15–20 nodes deployed along a vulnerable river stretch (e.g., Brahmaputra tributary or Yamuna basin) and forest corridor.
+- **Phase 2 (District Scale-Up - Months 9–14):** Complete district coverage integrated with District Disaster Management Authority (DDMA) emergency rooms.
+- **Phase 3 (State Integration - Year 2):** Live data feeds directly feeding the NDMA **Sachet** Early Warning platform via standard Common Alerting Protocols (CAP).
 
 ---
 
@@ -272,31 +305,30 @@ gantt
 SIH_SWARNIM/
 ├── firmware/                       # Edge Node Microcontroller Firmware
 │   ├── src/
-│   │   ├── main.cpp                # Core state-machine & FreeRTOS tasks
-│   │   ├── sensors/                # Sensor drivers (Ultrasonic, PM, Gases, Tilt)
-│   │   ├── tinyml/                 # TFLite Micro runtime & model tensor arena
-│   │   └── comms/                  # LoRaWAN SX1262 & ESP-NOW Mesh relay handlers
-│   └── platformio.ini              # PlatformIO embedded build configuration
-├── models/                         # ML Model Training & Quantization
-│   ├── datasets/                   # Environmental hazard time-series records
+│   │   ├── main.cpp                # FreeRTOS task manager & power states
+│   │   ├── sensors/                # Drivers: JSN-SR04T, SHT31, Rain Gauge, ADS1115
+│   │   ├── tinyml/                 # TFLite Micro tensor arena & quantized models
+│   │   ├── safety/                 # Deterministic fallback rules engine
+│   │   └── comms/                  # SX1276 LoRaWAN & Peer Relay handlers
+│   └── platformio.ini              # PlatformIO build configuration
+├── models/                         # ML Model Training & Quantization Pipeline
+│   ├── datasets/                   # Environmental hazard historical records
 │   ├── notebooks/                  # Training notebooks (TensorFlow/Keras/Scikit)
-│   ├── export/                     # int8 TFLite converted flatbuffers (.tflite)
-│   └── model_data.h                # C++ hex array for embedded compilation
-├── gateway/                        # Edge LoRaWAN Concentrator
-│   ├── forwarder/                  # Packet forwarder (Semtech UDP / MQTT)
-│   └── mesh_bridge.py              # Mesh-to-Cloud IP bridge
-├── backend/                        # Cloud Orchestration Engine
-│   ├── api/                        # FastAPI / Node.js REST & WebSocket endpoints
-│   ├── correlation/                # Multi-sensor spatial-temporal correlation engine
-│   ├── database/                   # TimescaleDB (time-series) + PostGIS (geospatial)
+│   └── export/                     # int8 quantized .tflite & model_data.h headers
+├── gateway/                        # Field LoRaWAN Gateway / Hub
+│   ├── forwarder/                  # Semtech packet forwarder to MQTT broker
+│   └── mesh_bridge.py              # Peer-relay packet de-duplication bridge
+├── backend/                        # Cloud / On-Premise Command Server
+│   ├── api/                        # FastAPI REST & WebSocket streaming endpoints
+│   ├── correlation/                # Multi-node spatial correlation engine
+│   ├── database/                   # TimescaleDB (time-series) + PostGIS (GIS)
 │   └── alerts/                     # NDMA Common Alerting Protocol (CAP) dispatcher
-├── dashboard/                      # Web GIS Emergency Control Room
+├── dashboard/                      # Real-time GIS Emergency Control Room
 │   ├── src/
-│   │   ├── components/             # React / Next.js real-time sensor cards
-│   │   ├── map/                    # Mapbox / Leaflet interactive GIS heatmap
-│   │   └── state/                  # Real-time WebSocket state management
+│   │   ├── components/             # Live sensor telemetry widgets & warning cards
+│   │   └── map/                    # Leaflet / Mapbox dynamic hazard risk heatmap
 │   └── package.json
-└── docs/                           # Hardware Schematics, 3D Enclosure CAD, & Docs
+└── docs/                           # Circuit Schematics, PCB CAD & Enclosure STLs
 ```
 
 ---
@@ -304,32 +336,32 @@ SIH_SWARNIM/
 ## 🚀 Getting Started
 
 ### 1. Prerequisites
-- **Embedded:** [PlatformIO IDE](https://platformio.org/) or [ESP-IDF](https://docs.espressif.com/projects/esp-idf/)
-- **Backend:** [Python 3.10+](https://www.python.org/) & [Docker Desktop](https://www.docker.com/)
-- **Frontend:** [Node.js 18+](https://nodejs.org/)
+- **Hardware Toolchain:** [PlatformIO IDE](https://platformio.org/) or [ESP-IDF v5.1+](https://docs.espressif.com/)
+- **Backend Services:** [Python 3.10+](https://www.python.org/) & [Docker Desktop](https://www.docker.com/)
+- **Frontend Dashboard:** [Node.js 18+](https://nodejs.org/)
 
-### 2. Firmware Flashing (ESP32-S3 Node)
+### 2. Microcontroller Firmware Flash (ESP32-S3)
 ```bash
-# Clone the repository
+# Clone the project repository
 git clone https://github.com/AnkitPandit120/SIH_Swarnim.git
 cd SIH_Swarnim/firmware
 
-# Build and flash to connected microcontroller
+# Build firmware and flash to USB-connected node
 pio run --target upload
 pio device monitor
 ```
 
 ### 3. Backend & GIS Dashboard Launch
 ```bash
-# Launch TimescaleDB, PostGIS, MQTT Broker, and FastAPI
+# Spin up TimescaleDB, PostGIS, MQTT Broker, and FastAPI backend
 cd ../backend
 docker-compose up -d
 
-# Run local frontend GIS dashboard
+# Launch real-time GIS command center dashboard
 cd ../dashboard
 npm install
 npm run dev
-# Open http://localhost:3000 to view live disaster simulation map
+# Open http://localhost:3000 in your browser
 ```
 
 ---
@@ -348,21 +380,21 @@ npm run dev
 
 ## 👥 Team Swarnim
 
-| Name | Role | Core Focus | Contact |
+| Name | Role | Focus Area | Contact |
 | :--- | :--- | :--- | :--- |
-| **[Member Name]** | Team Lead / AI Systems | TinyML Model Training & Quantization | [@GitHub](https://github.com) |
-| **[Member Name]** | Embedded Hardware Lead | Circuit Schematics, Power & Sensor Rig | [@GitHub](https://github.com) |
-| **[Member Name]** | IoT & Network Engineer | LoRaWAN / Mesh Protocol Stack | [@GitHub](https://github.com) |
-| **[Member Name]** | Full Stack Developer | GIS Risk Dashboard & Ingestion Broker | [@GitHub](https://github.com) |
-| **[Member Name]** | Backend & DevOps | Spatial Correlation Engine & CAP Alerts | [@GitHub](https://github.com) |
-| **[Member Name]** | Domain & UI/UX Specialist | Disaster Protocol & Civic Alert Apps | [@GitHub](https://github.com) |
+| **[Member Name]** | Team Lead / Embedded AI | TinyML Quantization & Dual Decision Engine | [@GitHub](https://github.com) |
+| **[Member Name]** | Embedded Hardware Lead | Circuit Schematics, MPPT Power & Sensor Rig | [@GitHub](https://github.com) |
+| **[Member Name]** | RF & Network Engineer | LoRaWAN Protocol & Ad-Hoc Peer Relay | [@GitHub](https://github.com) |
+| **[Member Name]** | Full Stack GIS Developer | Real-Time GIS Heatmaps & Web Control Room | [@GitHub](https://github.com) |
+| **[Member Name]** | Backend & Data Engineer | Spatial Correlation Engine & CAP Alerting | [@GitHub](https://github.com) |
+| **[Member Name]** | Domain & UI/UX Specialist | Disaster Management Protocols & Field App | [@GitHub](https://github.com) |
 
 ---
 
 ## 📜 References & Acknowledgements
 
-1. **National Disaster Management Authority (NDMA):** [Guidelines on Early Warning Systems](https://www.ndma.gov.in)
-2. **ITU Common Alerting Protocol (CAP):** Recommendation ITU-T X.1303 for emergency public warnings.
-3. **TensorFlow Lite for Microcontrollers:** *David et al., Embedded Machine Learning on TinyML Systems* ([arXiv:2010.08678](https://arxiv.org/abs/2010.08678)).
-4. **LoRa Alliance:** Regional Frequency Allocation Specifications for India (IN865-867).
-5. **Central Pollution Control Board (CPCB):** National Ambient Air Quality Standards (NAAQS).
+1. **Smart India Hackathon 2026:** Problem Statement #26178 (Qualcomm Inc.).
+2. **National Disaster Management Authority (NDMA):** [Guidelines on Early Warning Systems & Sachet App](https://www.ndma.gov.in).
+3. **ITU Common Alerting Protocol (CAP):** Recommendation ITU-T X.1303 for public warning dissemination.
+4. **TensorFlow Lite Micro:** *David et al., Embedded Machine Learning on TinyML Systems* ([arXiv:2010.08678](https://arxiv.org/abs/2010.08678)).
+5. **Semtech SX1276 / SX1262 LoRa Specifications:** Regional Sub-GHz Frequency Allocations for India (IN865–867).
