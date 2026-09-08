@@ -5,11 +5,11 @@
   (paper "A3")
 
   (title_block
-    (title "EIN Flagship Flood / Water-Level Node - Production Hardware")
-    (date "2026-09-05")
+    (title "SWARNIM Flagship Flood / Water-Level Node - Production Hardware")
+    (date "2026-09-09")
     (rev "v1.0-RC1")
     (company "Team Swarnim | SIH 2026 Problem Statement 26178 (Qualcomm Inc.)")
-    (comment 1 "Dual-Tier Edge AI & Resilient LoRa Sensing Node")
+    (comment 1 "Tier 1 Low-Cost Sensing Node (Feeds Tier 2 Raspberry Pi 5 Hub)")
     (comment 2 "MCU: ESP32-S3 | RF: SX1276 (865-867MHz) | Solar MPPT: BQ24650")
     (comment 3 "Sensors: JSN-SR04T Ultrasonic + Rain Gauge + SHT31 + DS3231 + ADS1115")
   )

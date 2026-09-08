@@ -1,4 +1,4 @@
-# 🌿 Environmental Intelligence Network (EIN)
+# 🌿 SWARNIM — Environmental Intelligence Network
 
 <div align="center">
 
@@ -6,12 +6,13 @@
 [![Organization: Qualcomm](https://img.shields.io/badge/Organization-Qualcomm_Inc.-3253DC?style=for-the-badge&logo=qualcomm)](https://www.qualcomm.com)
 [![Category: Hardware](https://img.shields.io/badge/Category-Hardware-E02424?style=for-the-badge&logo=circuitverse)](https://sih.gov.in)
 [![Theme: Disaster Management](https://img.shields.io/badge/Theme-Disaster_Management-0E9F6E?style=for-the-badge&logo=shield)](https://sih.gov.in)
-[![Edge AI](https://img.shields.io/badge/Edge_AI-ESP32--S3_%7C_Jetson_Orin-FF6F00?style=for-the-badge&logo=nvidia)](https://www.tensorflow.org/lite/microcontrollers)
+[![Edge AI](https://img.shields.io/badge/Edge_AI-ESP32--S3_%7C_Raspberry_Pi_5-FF6F00?style=for-the-badge&logo=raspberrypi)](https://www.tensorflow.org/lite/microcontrollers)
 [![Connectivity](https://img.shields.io/badge/Network-LoRaWAN_%7C_Sub--GHz-green?style=for-the-badge&logo=rss)](https://lora-alliance.org)
+[![Cloud](https://img.shields.io/badge/Cloud-AWS_IoT_%7C_Lambda_%7C_QuickSight-232F3E?style=for-the-badge&logo=amazonwebservices)](https://aws.amazon.com)
 
 **Decentralized, Solar-Autonomous Edge-AI Multi-Hazard Early Warning Network for India**
 
-[System Architecture](#-high-level-system-architecture) • [Two-Tier Compute](#-two-tier-compute-architecture) • [Modular Node Profiles](#-modular-hazard-node-profiles) • [Hardware & BOM](#-hardware-components--bill-of-materials) • [Resilient Comms](#-resilient-communication-architecture) • [Quickstart](#-getting-started)
+[System Architecture](#-high-level-system-architecture) • [Two-Tier Compute](#-two-tier-compute-architecture) • [Edge & Cloud Partition](#-functional-partition-matrix) • [Modular Node Profiles](#-modular-hazard-node-profiles) • [Hardware & BOM](#-hardware-components--bill-of-materials) • [Power Management](#-dynamic-power-priority-management) • [Quickstart](#-getting-started)
 
 ---
 
@@ -21,11 +22,15 @@
 
 India experiences catastrophic, rapidly escalating environmental hazards: urban flash floods, Himalayan landslides, forest fires in Uttarakhand and the Northeast, toxic industrial leaks, and dangerous winter smog. While national agencies (**NDMA, IMD, CPCB, and ISRO**) provide vital macro-level meteorological forecasting, disasters strike at hyper-local coordinates where terrestrial communication and power infrastructure fail first.
 
-The **Environmental Intelligence Network (EIN)** bridges this critical last-mile detection gap. Built for **SIH Problem Statement #26178 (Qualcomm Inc.)**, EIN is a decentralized network of autonomous, solar-powered sensor nodes that operates on a resilient founding principle:
+The **SWARNIM (Smart Warning & Resilient Network for Intelligence & Monitoring)** bridges this critical last-mile detection gap. Built for **SIH Problem Statement #26178 (Qualcomm Inc.)**, SWARNIM is a decentralized network of autonomous, solar-powered sensor nodes and edge intelligence hubs that operates on a resilient founding principle:
 
-> **Sense locally → Process locally → Decide locally → Act locally → Communicate intelligently → Coordinate centrally**
+> **SENSE LOCALLY → PROCESS LOCALLY → DECIDE LOCALLY → WARN LOCALLY → COMMUNICATE WHEN POSSIBLE → SYNC TO CLOUD**
 
-Instead of blindly streaming heavy raw sensor data over fragile cellular links, each node runs on-device preprocessing, sensor fusion, and **Edge AI / deterministic safety logic**. If a hazard threshold or anomaly pattern is confirmed, the node actuates immediate local alarms (sirens/beacons) and transmits an ultra-compact **32-byte actionable alert packet** over **Sub-GHz LoRa / LoRaWAN** to regional command centers and community channels.
+Instead of blindly streaming heavy raw sensor data over fragile cellular links, SWARNIM distributes intelligence:
+1. **Low-Cost Sensor Nodes (ESP32-S3):** Continuously gather environmental data, perform physical threshold checks, noise filtering, and broadcast lightweight LoRa packets.
+2. **Edge Processing Hubs (Raspberry Pi 5 + TinyML):** Execute on-device AI inference, cross-sensor anomaly detection, local hazard scoring, trigger immediate local sirens/LED beacons, and maintain an offline store-and-forward buffer on microSD during connectivity dropouts.
+3. **Resilient LoRa Backhaul:** Transmits ultra-compact **32-byte actionable alert packets** over **Sub-GHz LoRa / LoRaWAN (IN865)** to regional command centers.
+4. **Coordinated Cloud Sync (AWS):** Ingests validated alerts via AWS IoT Core and Lambda to update DynamoDB, S3 historical archives, and Amazon QuickSight emergency dashboards when connectivity is available.
 
 ---
 
@@ -39,7 +44,7 @@ Instead of blindly streaming heavy raw sensor data over fragile cellular links, 
 | **Category** | **Hardware** (IoT Transduction, Embedded Systems & Edge AI) |
 | **Theme** | **Disaster Management** |
 | **Target Stakeholders** | NDMA, State Disaster Management Authorities (SDMAs), Municipal Corporations, Forest Departments, Vulnerable Communities |
-| **Core Value Proposition** | Sub-second offline threat classification + Multi-hazard modular rigs + Zero-grid solar autonomy |
+| **Core Value Proposition** | Sub-second offline threat classification + Hierarchical Edge AI + Zero-grid solar autonomy + Local siren actuation |
 
 ---
 
@@ -48,27 +53,28 @@ Instead of blindly streaming heavy raw sensor data over fragile cellular links, 
 ```text
   ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐
   │   < 120 ms      │   │   12–15 km      │   │    72+ hrs      │   │   ~₹3,360       │
-  │ On-Device Infer │   │ Sub-GHz Reach   │   │ Zero-Sun Backup │   │  BOM (Field)    │
+  │ On-Device Infer │   │ Sub-GHz Reach   │   │ Zero-Sun Backup │   │ Field Node BOM  │
   └─────────────────┘   └─────────────────┘   └─────────────────┘   └─────────────────┘
 ```
 
 - **⚡ Zero-Grid Autonomy:** Custom MPPT solar harvesting paired with thermally stable **LiFePO4 chemistry** (survives 0°C to 60°C Indian field temperatures).
 - **🛡️ Deterministic Safety + AI Ensemble:** Parallel execution of hard physical safety rules alongside quantized neural models eliminates false negatives while providing transparent decision explainability.
 - **📡 Bandwidth & Radio Discipline:** 99.8% reduction in channel congestion by streaming event-driven 32-byte binary payloads instead of round-the-clock sensor telemetry.
-- **🔄 Graceful Degradation:** Full Online $\rightarrow$ Peer LoRa Relay $\rightarrow$ Local Flash Store-and-Forward $\rightarrow$ Local Audio Actuation if completely severed.
+- **🔄 Zero Data Loss (Store-and-Forward):** MicroSD and SPI Flash circular buffers preserve all telemetry during total communication blackouts and synchronize automatically upon reconnection.
+- **🚨 Instant Local Warning:** Direct actuation of 110 dB sirens and strobe lights within milliseconds without waiting for cloud confirmation.
 
 ---
 
 ## ⚖️ Competitive Differentiation
 
-| Parameter | Centralized Remote Sensing (IMD/ISRO) | Generic Cloud IoT Solutions | **EIN (Our Architecture)** |
+| Parameter | Centralized Remote Sensing (IMD/ISRO) | Generic Cloud IoT Solutions | **SWARNIM (Our Architecture)** |
 | :--- | :--- | :--- | :--- |
-| **Inference Location** | Central Server / Supercomputer | Remote Cloud Servers | **On-Device (Dual-Tier Edge AI)** |
-| **Grid & Tower Blackout** | Fails when local power/fiber fails | Disconnects when cellular link drops | **100% Autonomous (Solar + LiFePO4 + LoRa)** |
-| **Detection-to-Alert** | 15 minutes to several hours | 10 – 30 seconds | **< 1.2 seconds (Immediate local siren)** |
+| **Inference Location** | Central Server / Supercomputer | Remote Cloud Servers | **On-Device (Hierarchical ESP32 + Raspberry Pi 5 Edge AI)** |
+| **Grid & Tower Blackout** | Fails when local power/fiber fails | Disconnects when cellular link drops | **100% Autonomous (Solar + LiFePO4 + LoRa + Offline Buffer)** |
+| **Detection-to-Alert** | 15 minutes to several hours | 10 – 30 seconds | **< 1.2 seconds (Immediate local siren & strobe LED)** |
 | **Network Overhead** | High-bandwidth periodic ingest | Continuous sensor telemetry streams | **32-byte Event Packets + Health Heartbeats** |
 | **False-Alarm Resistance** | Single-sensor threshold trips | Heuristic static rules | **Multi-Sensor Fusion + Anomaly Autoencoders** |
-| **Deployment Hardware** | Multi-lakh meteorological stations | Single-purpose siloed gadgets | **Modular Open-Standard Rig (~₹3,360/node)** |
+| **Deployment Cost** | Multi-lakh meteorological stations | Single-purpose siloed gadgets | **Low-Cost Nodes (~₹3,360) + Regional Edge AI Hubs** |
 
 ---
 
@@ -85,79 +91,208 @@ graph TD
         S6["3-Axis MEMS Inclinometer & Soil Moisture"]
     end
 
-    subgraph EDGE["2. Edge Intelligence Layer (Tier 1: ESP32-S3 / Tier 2: Jetson)"]
+    subgraph NODE["2. Distributed Low-Cost Sensor Nodes (Tier 1: ESP32-S3)"]
         PWR["Dynamic Sensor Power Gating (TPS22919)"]
-        PRE["Noise Filtering, Calibration & Unit Conversion"]
-        FUS["Temporal Cross-Sensor Fusion Engine"]
-        subgraph DECISION["Parallel Decision Engine"]
-            RULE["Deterministic Safety Rules\n(Instant Physical Thresholds)"]
-            TFL["TinyML Quantized int8 Model\n(Anomaly & Threat Classification)"]
-        end
-        CONF["Confidence Score & Severity Arbitrator"]
-        ACT["Local Hazard Siren / Audio Beacon Actuator"]
+        SMPL["Continuous Sampling & Noise Filtering"]
+        DET["Deterministic Safety Rules (Physical Thresholds)"]
+        L1["LoRa Transceiver (SX1262 / SX1276)"]
     end
 
-    subgraph COMM["3. Resilient Communication Layer"]
-        LORA["Primary: LoRaWAN Star Network (865-867 MHz IN865)"]
-        PEER["Fallback: LoRa Ad-Hoc Peer Relay (Multi-Hop Hop Count)"]
-        FLASH["Offline Store-and-Forward (SPI Flash / MicroSD Queue)"]
-        GATE["Solar LoRa Gateway (Linux / RPi-class Concentrator)"]
+    subgraph MESH["3. Resilient Communication Mesh"]
+        LORA["LoRa / LoRaWAN Mesh (IN865 865–867 MHz)"]
+        RELAY["Ad-Hoc Peer Relay (Multi-Hop Routing)"]
     end
 
-    subgraph CLOUD["4. Command Center & Ingestion Engine"]
-        INGEST["MQTT / HTTPS Message Ingestion Broker"]
-        CORR["Multi-Node Spatial-Temporal Correlation Engine"]
-        GIS["Geo-Spatial Dynamic Risk Mapper (PostGIS + Leaflet)"]
-        DISPATCH["Alert Dispatcher (NDMA Common Alerting Protocol - CAP)"]
+    subgraph EDGE["4. Edge Intelligence Hub (Tier 2: Raspberry Pi 5 + TinyML)"]
+        FUS["Multi-Sensor Temporal Fusion Engine"]
+        AI["On-Device TinyML / Anomaly Detection"]
+        SCORE["Local Hazard Scoring & Severity Arbitrator"]
+        BUFFER["Offline Store-and-Forward Buffer (microSD)"]
+        SIREN["🚨 Local Alert Actuator (110dB Siren + Strobe LED)"]
     end
 
-    subgraph OUTPUT["5. Actionable Multi-Channel Warning"]
-        DASH["District Control Room Web Dashboard"]
-        SMS["Geo-Fenced Cell Broadcast / SMS Alerts"]
-        MOBILE["Civic First-Responder Mobile App"]
+    subgraph GATEWAY["5. Gateway Backhaul"]
+        GW["Solar LoRaWAN Gateway / Hub Concentrator"]
     end
 
-    SENSE --> PWR --> PRE --> FUS
-    FUS --> RULE
-    FUS --> TFL
-    RULE --> CONF
-    TFL --> CONF
-    CONF -->|Critical Severity| ACT
-    CONF -->|Compact Event Packet| LORA
-    CONF -.->|Gateway Obstructed| PEER
-    CONF -.->|Total RF Loss| FLASH
-    LORA --> GATE
-    PEER --> GATE
-    FLASH -.->|Link Restored| GATE
-    GATE --> INGEST --> CORR --> GIS --> DISPATCH
-    DISPATCH --> DASH
-    DISPATCH --> SMS
-    DISPATCH --> MOBILE
+    subgraph CLOUD["6. Cloud Intelligence & Coordination (AWS Cloud)"]
+        IOT["AWS IoT Core (MQTT Secure Ingestion)"]
+        LAMBDA["AWS Lambda (Spatial Correlation & Event Processing)"]
+        STORAGE["Amazon DynamoDB / Amazon S3 (Time-Series & Telemetry Storage)"]
+        QS["Amazon QuickSight / Control Room Dashboard"]
+        CAP["NDMA Common Alerting Protocol (CAP) Dispatcher"]
+    end
+
+    subgraph OUTPUT["7. Multi-Channel Emergency Warning"]
+        DASH["District Emergency Operations Center (DEOC)"]
+        SMS["Cell Broadcast / SMS Evacuation Notice"]
+        FIRST["First Responders Mobile Alert"]
+    end
+
+    SENSE --> PWR --> SMPL --> DET --> L1
+    L1 --> LORA
+    LORA -.-> RELAY -.-> LORA
+    LORA --> EDGE
+    EDGE --> FUS --> AI --> SCORE
+    SCORE -->|Critical Hazard| SIREN
+    SCORE -->|Outage Fallback| BUFFER
+    BUFFER -.->|Link Restored| GW
+    SCORE -->|Actionable Packet| GW
+    GW --> IOT --> LAMBDA --> STORAGE
+    LAMBDA --> QS --> DASH
+    LAMBDA --> CAP --> SMS
+    CAP --> FIRST
 ```
 
 ---
 
 ## 💻 Two-Tier Compute Architecture
 
-To balance cost, power consumption, and advanced AI requirements across vast geographic corridors, EIN implements a **tiered compute paradigm**:
+To balance cost, power consumption, and advanced AI requirements across vast geographic corridors, SWARNIM implements a **hierarchical edge compute paradigm**:
 
 ```text
   ┌──────────────────────────────────────────────┐     ┌──────────────────────────────────────────────┐
-  │         TIER 1: ULTRA-LOW-POWER NODE         │     │         TIER 2: HIGH-COMPUTE EDGE HUB        │
+  │      TIER 1: ULTRA-LOW-POWER SENSOR NODE     │     │        TIER 2: HIGH-COMPUTE EDGE HUB         │
   ├──────────────────────────────────────────────┤     ├──────────────────────────────────────────────┤
-  │ • Compute: ESP32-S3 Dual-Core Xtensa LX7     │     │ • Compute: NVIDIA Jetson Orin Nano / Linux   │
-  │ • Power: 3.3V, < 15 µA Deep-Sleep Current    │     │ • Power: 10W–15W, Active MPPT Solar Array    │
-  │ • Logic: int8 TinyML + Deterministic Rules   │     │ • Logic: Multi-Stream Vision + Complex Fusion│
-  │ • Deployment: Thousands across rivers/slopes │     │ • Deployment: Critical bridges, dams & hubs  │
-  │ • Unit BOM: ~₹3,360 ($40 USD)                │     │ • Role: Heavy AI + Regional Cluster Gateway  │
+  │ • Compute: ESP32-S3 Dual-Core Xtensa LX7     │     │ • Compute: Raspberry Pi 5 (Quad Cortex-A76)  │
+  │ • Power: 3.3V, < 15 µA Deep-Sleep Current    │     │ • Power: 10W–15W, Solar MPPT + LiFePO4 Pack  │
+  │ • Logic: Sensor Sampling + Baseline Filter   │     │ • Logic: TinyML Anomaly Detection + Scoring  │
+  │ • Storage: On-board SPI Flash Circular Log   │     │ • Storage: High-Endurance microSD Buffer     │
+  │ • Output: LoRa / LoRa Mesh RF Broadcast      │     │ • Output: Direct 110dB Siren + Strobe Alerts │
+  │ • Unit BOM: ~₹3,360 ($40 USD)                │     │ • Role: Heavy AI + Regional Cluster Hub/GW   │
+  │ • Deployment: Thousands across rivers/hills  │     │ • Deployment: Critical bridges, dams & towns │
   └──────────────────────────────────────────────┘     └──────────────────────────────────────────────┘
 ```
 
 ---
 
+## 🔄 Architecture Evolution & Cost Optimization
+
+A fundamental challenge in regional disaster networks is balancing compute capability against unit procurement cost and power availability. Earlier high-compute paradigms envisioned placing heavy compute platforms (such as NVIDIA Jetson or industrial x86 boxes) at every single sensor outpost. However, this incurs prohibitive field costs (~$400–$600+ per site), continuous 15W–30W power drains, and bulky solar arrays that make dense spatial deployment unfeasible across India's thousands of remote river basins and forest ridges.
+
+SWARNIM addresses this with a **cost-optimized, hierarchical cluster model**:
+
+```text
+EARLIER / HIGH-COMPUTE APPROACH (Cost-Prohibitive & Power-Heavy)
+Sensors ──> Heavy Computer (Jetson/x86) ──> Heavy AI ──> Cellular/Sat ──> Cloud
+
+CURRENT SWARNIM ARCHITECTURE (Cost-Optimized, Power-Lean & Resilient)
+[Low-Cost Distributed Sensor Nodes]
+   ESP32-S3 + Modular Sensors (~₹3,360 BOM)
+            │
+      LoRa / LoRa Mesh (IN865 865–867 MHz)
+            │
+            ▼
+[Tier 2 Regional Edge Hub]
+   Raspberry Pi 5 + TinyML Engine
+   • Multi-Sensor Temporal Fusion
+   • On-Device AI Anomaly Detection & Local Hazard Scoring
+   • MicroSD Store-and-Forward Circular Buffer (Zero Data Loss)
+   • Direct 110 dB Siren & Strobe LED Actuator (Instant Offline Warning)
+            │
+            ▼
+[LoRaWAN Gateway Backhaul]
+   Solar Concentrator (Ethernet / LTE / Wi-Fi)
+            │
+            ▼
+[Cloud Coordination & Analytics Layer]
+   AWS IoT Core ──> AWS Lambda ──> DynamoDB / S3 ──> Amazon QuickSight
+```
+
+### Key Architectural Benefits:
+1. **Fractional Capital Expenditure:** Hundreds of ultra-low-cost ESP32-S3 nodes (~₹3,360) provide dense spatial coverage, feeding into a single Raspberry Pi 5 Edge Hub at critical choke-points (bridges, dams, panchayat halls).
+2. **Extreme Power Lean:** Sensor nodes sleep at < 15 µA. The Raspberry Pi 5 Edge Hub operates reliably from an active 12V LiFePO4 solar rig with dynamic load-shedding.
+3. **Guaranteed Localized Siren Actuation:** An immediate 110 dB siren and strobe light triggers at ground zero without needing internet access or remote cloud round-trips.
+4. **Resilient Offline Autonomy:** In the event of a total network severance, both tiers continue sensing, scoring, alarming, and buffering.
+
+---
+
+## 📋 Functional Partition Matrix
+
+SWARNIM establishes a strict functional contract across all layers from physical transduction to cloud dashboard:
+
+| Component | Hardware / Technology | Primary Responsibility |
+| :--- | :--- | :--- |
+| **Environmental Sensors** | JSN-SR04T, Rain Gauge, SHT31, PMS5003, MQ-Gas, MPU6050 | Direct physical transduction of flood stage, precipitation, air toxicity, flame, and slope shift |
+| **Tier 1 Sensor Node** | ESP32-S3 Dual-Core Xtensa LX7 (16MB Flash, 8MB PSRAM) | Sensor acquisition, power gating (TPS22919), noise filtering, deterministic physical rules, LoRa uplink |
+| **Resilient Mesh** | Semtech SX1262 / SX1276 (IN865 865–867 MHz) | Low-power Sub-GHz point-to-point and ad-hoc peer relay communication (12–15 km LoS reach) |
+| **Tier 2 Edge Hub** | Raspberry Pi 5 (Quad-Core Cortex-A76 @ 2.4GHz, 4GB/8GB) | Multi-node sensor fusion, TinyML model execution, anomaly detection, real-time hazard scoring |
+| **Local Alert Actuator** | 110 dB Industrial Piezo Siren + High-Intensity Strobe LED | Immediate, autonomous local community evacuation warning (< 1.2s latency) without cloud dependency |
+| **Offline Storage Buffer**| High-Endurance Industrial microSD Card (V30/A2) | Local store-and-forward circular queue preserving all telemetry during backhaul blackout |
+| **LoRaWAN Gateway** | SX1302 / SX1303 8-Channel Concentrator HAT | Concurrent multi-node RF packet demodulation and translation to IP/MQTT backhaul |
+| **Cloud Ingestion** | AWS IoT Core | High-scale, TLS-authenticated telemetry and hazard event stream broker |
+| **Cloud Processing** | AWS Lambda Serverless | Cross-catchment spatial-temporal correlation, flood crest projection, NDMA CAP alert packaging |
+| **Cloud Storage** | Amazon DynamoDB & Amazon S3 | High-throughput time-series records (DynamoDB) and long-term raw hydrology log archives (S3) |
+| **Visualization & Alerts**| Amazon QuickSight & Custom GIS Control Room | Real-time district GIS heatmaps, emergency operations consoles, and SMS cell-broadcast triggers |
+
+---
+
+## ⚡ Dynamic Power Priority Management
+
+In disaster environments, monsoon deluges and wildfire smoke can occlude solar panels for days. SWARNIM implements an active multi-tiered power triage policy:
+
+```text
+                      Solar Array + MPPT Charge Controller (TI BQ24650)
+                                            │
+                                            ▼
+                           LiFePO4 Energy Storage Pack (12.8V / 3.2V)
+                                            │
+               ┌────────────────────────────┴────────────────────────────┐
+               ▼                                                         ▼
+    BATTERY HEALTHY (> 40% SoC)                               LOW BATTERY (< 40% SoC)
+    • All sensors active (level, rain, gas, PM)               • Non-critical sensors powered OFF via TPS22919
+    • Full TinyML inference & feature logs                    • Duty cycles extended (sleep 60s ➔ 300s)
+    • Normal telemetry cadence                                • Disable cameras & auxiliary telemetry
+    • Siren & strobe ready in standby                         • Power prioritized strictly for:
+                                                                  1. Critical hazard sensors (Water/Rain)
+                                                                  2. Local siren actuation circuit
+                                                                  3. Emergency LoRa alert broadcasts
+```
+
+> [!IMPORTANT]
+> **Core Engineering Tenet:** *Critical disaster detection and emergency local sirens unconditionally receive power priority over non-critical logging, camera vision, and heavy analytics.*
+
+---
+
+## 💾 Network Resilience & Store-and-Forward Buffer
+
+Communication outages are common during extreme disasters. SWARNIM is architected so network loss never halts detection or destroys data:
+
+```text
+                      Network Disruption / Gateway Offline
+                                       │
+                                       ▼
+                       Edge Node Continues Local Operation
+                                       │
+                                       ▼
+                    On-Device TinyML & Hazard Scoring Active
+                                       │
+                 ┌─────────────────────┴─────────────────────┐
+                 ▼                                           ▼
+      Hazard Condition Detected?                     Telemetry Record
+                 │                                           │
+         ┌───────┴───────┐                                   ▼
+        YES              NO                          Write to microSD
+         │               │                     (Store-and-Forward FIFO Queue)
+         ▼               ▼                                   │
+   Local Siren/LED     Normal                                │
+  Activated Instantly  Logging                               │
+         │                                                   ▼
+         │                                       Connectivity Restored?
+         │                                                   │
+         │                                                   ▼
+         └───────────────────────────────────────> Flush Stored Records to
+                                                   AWS IoT Core / Cloud DB
+```
+
+- **Zero Data Loss:** When communication fails, all stamped telemetry is committed to the local **microSD card** (on Raspberry Pi 5) or **SPI Flash** (on ESP32).
+- **Graceful Re-Synchronization:** Once backhaul connectivity is restored, the queue automatically flushes stored records to AWS IoT Core with backoff retries, ensuring complete hydrological records for historical analysis.
+
+---
+
 ## 🧩 Modular Hazard Node Profiles
 
-EIN does **not** force a one-size-fits-all hardware rig. Instead, a standardized baseboard hosts interchangeable sensor daughter modules based on terrain:
+SWARNIM does **not** force a one-size-fits-all hardware rig. Instead, a standardized baseboard hosts interchangeable sensor daughter modules based on terrain:
 
 | Node Type | Primary Sensors | Typical Deployment Site | Key Target Event |
 | :--- | :--- | :--- | :--- |
@@ -171,7 +306,7 @@ EIN does **not** force a one-size-fits-all hardware rig. Instead, a standardized
 
 ## 🧰 Hardware Components & Bill of Materials
 
-### Flagship Flood Node Reference Design (Tier 1 Production BOM)
+### Tier 1: Flagship Flood Sensor Node Reference Design (Field Production BOM)
 
 > [!TIP]
 > **Complete Production PCB Design Package Available:**
@@ -194,13 +329,30 @@ EIN does **not** force a one-size-fits-all hardware rig. Instead, a standardized
 | **Photovoltaic Collector**| 6V 5W Monocrystalline Waterproof Panel | DC Jack | ₹290 | Autonomous daylight energy replenishment |
 | **Power Gating Switches** | TI TPS22919 Load Switches with Quick Discharge | GPIO Controlled | ₹70 | Completely isolates unneeded sensors during sleep |
 | **Ruggedized Enclosure** | Polycarbonate IP66 Case with PG9 Cable Glands | Mechanical | ₹210 | Weatherproof seal against monsoon deluge and dust |
-| **Total Node Cost** | — | — | **~₹3,360** | **Viable for mass panchayat-level procurement** |
+| **Total Sensor Node BOM** | — | — | **~₹3,360** | **Viable for mass panchayat-level procurement** |
+
+### Tier 2: Regional Edge Hub & Concentrator Reference Design (Raspberry Pi 5 BOM)
+
+Each regional cluster hub manages 20–50 distributed Tier 1 sensor nodes across an entire sub-catchment or river stretch:
+
+| Component | Part / Model | Interface | Unit Cost (INR) | Function |
+| :--- | :--- | :--- | :---: | :--- |
+| **Edge Compute Host** | Raspberry Pi 5 (4GB / 8GB LPDDR4X, Quad Cortex-A76) | PCIe, USB 3.0, GPIO | ₹6,200 | On-device TinyML inference, anomaly detection & local hazard scoring |
+| **LoRaWAN Gateway HAT** | Waveshare SX1302 / SX1303 8-Channel Concentrator (IN865) | SPI / GPIO | ₹5,800 | Multi-node concurrent packet reception (12–15 km radius) |
+| **Store & Forward Storage** | SanDisk Industrial High-Endurance 64GB MicroSD (A2/V30) | SDIO | ₹750 | Local circular FIFO buffer; guarantees zero data loss in blackouts |
+| **Local Siren & Strobe** | 110 dB 12V Industrial Piezo Siren + High-Lumen Strobe LED | MOSFET (GPIO Trigger)| ₹450 | Instant community audible & visual warning without internet latency |
+| **Solar MPPT Controller** | 12V/10A Synchronous MPPT Solar Charge Controller | Solar / Battery | ₹1,400 | Optimizes energy harvesting for continuous 10W–15W edge operation |
+| **Solar Energy Source** | 12V 50W Monocrystalline Aluminum-Framed Solar Panel | MC4 / Terminal | ₹2,400 | Daylight power replenisher rated for heavy monsoon cloud cover |
+| **Hub Energy Storage** | 12.8V 12Ah LiFePO4 Deep-Cycle Battery Pack with BMS | 12V Rail | ₹3,400 | 72+ hours uninterrupted hub autonomy through zero-sun overcast |
+| **DC-DC Power Stage** | 12V-to-5V 5A High-Efficiency Synchronous Buck Converter | USB-C / Terminal | ₹350 | Stable 5V/5A power delivery for Raspberry Pi 5 under heavy AI loads |
+| **Outdoor Weatherproof Box**| IP66 Vented Industrial Electrical Box with Pole Mounting | Mechanical | ₹850 | Hermetic sealing against dust, torrential rain, and heat dissipation |
+| **Total Edge Hub Cost** | — | — | **~₹21,700** | **Serves up to 50 sensor nodes across a 15 km river corridor** |
 
 ---
 
 ## 🧠 Dual-Stage Safety & TinyML Pipeline
 
-To ensure human-life safety, **EIN never relies on machine learning as an opaque single point of failure**.
+To ensure human-life safety, **SWARNIM never relies on machine learning as an opaque single point of failure**.
 
 ```text
                   Multi-Sensor Stream (Level, Rain, Temp, Gas)
@@ -225,12 +377,13 @@ To ensure human-life safety, **EIN never relies on machine learning as an opaque
 
 1. **Deterministic Safety Rules:** If water level exceeds `CRITICAL_DATUM` or rate-of-rise exceeds `20 cm/hr`, the alarm triggers unconditionally—preventing algorithmic blind spots.
 2. **Quantized Neural Classifiers:** A lightweight 1D-CNN + GRU model (`< 42 KB RAM`, `< 165 KB Flash`) evaluates temporal rate-of-change across rainfall, moisture, and level to predict flood crests **30–45 minutes in advance**.
+3. **Tier 2 Edge Hub Correlation:** The Raspberry Pi 5 aggregates inputs across neighboring nodes, computes multi-sensor spatial anomalies, and arbitrates cluster-wide emergency sirens and CAP warning dispatches.
 
 ---
 
 ## 📦 Ultra-Compact 32-Byte Alert Packet Structure
 
-Transmitting verbose JSON over sub-GHz LoRaWAN drains battery and congests regional frequencies. EIN serializes all threat intelligence into a high-density 32-byte binary struct:
+Transmitting verbose JSON over sub-GHz LoRaWAN drains battery and congests regional frequencies. SWARNIM serializes all threat intelligence into a high-density 32-byte binary struct:
 
 ```text
  0                   1                   2                   3
@@ -255,7 +408,7 @@ Transmitting verbose JSON over sub-GHz LoRaWAN drains battery and congests regio
 ### Actionable Alert Payload Example (Human-Readable Conversion)
 ```json
 {
-  "node_id": "EIN-FLD-0042",
+  "node_id": "SWARNIM-FLD-0042",
   "hazard": "FLASH_FLOOD",
   "severity": "CRITICAL",
   "risk_score": 0.94,
@@ -278,7 +431,7 @@ Transmitting verbose JSON over sub-GHz LoRaWAN drains battery and congests regio
 
 1. **Normal State (LoRaWAN Star Topology):** The node uplinks directly to a regional solar-powered LoRaWAN Gateway operating on Indian ISM bands (`IN865–867 MHz`).
 2. **Gateway Obstructed (LoRa Ad-Hoc Peer Relay):** If the primary gateway is damaged or masked by terrain, the node shifts to a peer-to-peer relay mode, bouncing packets across neighboring nodes (with hop counters and de-duplication) until reaching a functioning gateway.
-3. **Total Backhaul Outage (Store-and-Forward):** Alerts and historical data are stored in on-board SPI Flash / MicroSD with cryptographic verification and backoff retries until the gateway link is restored.
+3. **Total Backhaul Outage (Store-and-Forward Buffer):** Alerts and historical data are stored in on-board SPI Flash (ESP32) and high-endurance microSD card (Raspberry Pi 5) with backoff retries until the gateway link is restored, ensuring zero data loss.
 
 ---
 
@@ -286,7 +439,7 @@ Transmitting verbose JSON over sub-GHz LoRaWAN drains battery and congests regio
 
 ```mermaid
 gantt
-    title EIN Phased Scaling Strategy (SIH 2026 to National Scale)
+    title SWARNIM Phased Scaling Strategy (SIH 2026 to National Scale)
     dateFormat  YYYY-MM
     section Prototype Validation
     Hardware Schematics, BOM Freeze & Bench Testing :done, 2026-08, 2026-09
@@ -299,8 +452,8 @@ gantt
     Pan-India NDMA CAP Integration                  :2028-01, 2028-12
 ```
 
-- **Phase 0 (Prototype - Present):** Single fully functional ESP32-S3 flood/environmental node with local buzzer, LoRa radio, and live GIS map.
-- **Phase 1 (District Pilot - Months 4–8):** 15–20 nodes deployed along a vulnerable river stretch (e.g., Brahmaputra tributary or Yamuna basin) and forest corridor.
+- **Phase 0 (Prototype - Present):** Single fully functional ESP32-S3 flood/environmental node with local buzzer, LoRa radio, Raspberry Pi 5 edge hub testbench, and AWS IoT ingestion.
+- **Phase 1 (District Pilot - Months 4–8):** 15–20 sensor nodes and 2 Raspberry Pi 5 Edge Hubs deployed along a vulnerable river stretch (e.g., Brahmaputra tributary or Yamuna basin) and forest corridor.
 - **Phase 2 (District Scale-Up - Months 9–14):** Complete district coverage integrated with District Disaster Management Authority (DDMA) emergency rooms.
 - **Phase 3 (State Integration - Year 2):** Live data feeds directly feeding the NDMA **Sachet** Early Warning platform via standard Common Alerting Protocols (CAP).
 
@@ -310,24 +463,31 @@ gantt
 
 ```text
 SIH_SWARNIM/
-├── firmware/                       # Edge Node Microcontroller Firmware
+├── firmware/                       # Tier 1 Sensor Node Microcontroller Firmware (ESP32-S3)
 │   ├── src/
-│   │   ├── main.cpp                # FreeRTOS task manager & power states
+│   │   ├── main.cpp                # FreeRTOS task manager & power sleep states
 │   │   ├── sensors/                # Drivers: JSN-SR04T, SHT31, Rain Gauge, ADS1115
-│   │   ├── tinyml/                 # TFLite Micro tensor arena & quantized models
-│   │   ├── safety/                 # Deterministic fallback rules engine
-│   │   └── comms/                  # SX1276 LoRaWAN & Peer Relay handlers
+│   │   ├── safety/                 # Deterministic fallback physical rules engine
+│   │   └── comms/                  # SX1262 / SX1276 LoRa & Peer Relay handlers
 │   └── platformio.ini              # PlatformIO build configuration
+├── edge_hub/                       # Tier 2 Regional Edge Hub Software (Raspberry Pi 5)
+│   ├── inference/                  # On-device TinyML runtime & anomaly detector
+│   ├── scoring/                    # Local hazard scoring & multi-node correlation
+│   ├── actuation/                  # GPIO driver for 110 dB siren & strobe LED
+│   └── storage/                    # MicroSD store-and-forward FIFO circular buffer
 ├── models/                         # ML Model Training & Quantization Pipeline
 │   ├── datasets/                   # Environmental hazard historical records
 │   ├── notebooks/                  # Training notebooks (TensorFlow/Keras/Scikit)
 │   └── export/                     # int8 quantized .tflite & model_data.h headers
 ├── gateway/                        # Field LoRaWAN Gateway / Hub
-│   ├── forwarder/                  # Semtech packet forwarder to MQTT broker
+│   ├── forwarder/                  # Semtech packet forwarder to AWS IoT Core / MQTT
 │   └── mesh_bridge.py              # Peer-relay packet de-duplication bridge
-├── backend/                        # Cloud / On-Premise Command Server
+├── cloud/                          # AWS Cloud Infrastructure & Pipelines
+│   ├── iot_rules/                  # AWS IoT Core SQL rules & binary packet decoders
+│   ├── lambda/                     # Serverless stream processing & CAP alert generator
+│   └── dynamodb/                   # Time-series schema definitions & S3 archival policies
+├── backend/                        # On-Premise / Edge Command Center Server
 │   ├── api/                        # FastAPI REST & WebSocket streaming endpoints
-│   ├── correlation/                # Multi-node spatial correlation engine
 │   ├── database/                   # TimescaleDB (time-series) + PostGIS (GIS)
 │   └── alerts/                     # NDMA Common Alerting Protocol (CAP) dispatcher
 ├── dashboard/                      # Real-time GIS Emergency Control Room
@@ -335,7 +495,8 @@ SIH_SWARNIM/
 │   │   ├── components/             # Live sensor telemetry widgets & warning cards
 │   │   └── map/                    # Leaflet / Mapbox dynamic hazard risk heatmap
 │   └── package.json
-└── docs/                           # Circuit Schematics, PCB CAD & Enclosure STLs
+└── hardware/                       # KiCad Schematic, PCB Layout & Production Documentation
+    └── flood_node_pcb/             # Gerber files, schematic diagrams, and HARDWARE_GUIDE.md
 ```
 
 ---
@@ -343,24 +504,42 @@ SIH_SWARNIM/
 ## 🚀 Getting Started
 
 ### 1. Prerequisites
-- **Hardware Toolchain:** [PlatformIO IDE](https://platformio.org/) or [ESP-IDF v5.1+](https://docs.espressif.com/)
-- **Backend Services:** [Python 3.10+](https://www.python.org/) & [Docker Desktop](https://www.docker.com/)
-- **Frontend Dashboard:** [Node.js 18+](https://nodejs.org/)
+- **Sensor Node Toolchain:** [PlatformIO IDE](https://platformio.org/) or [ESP-IDF v5.1+](https://docs.espressif.com/)
+- **Edge Hub Environment:** Raspberry Pi 5 with 64-bit OS (Debian Bookworm), Python 3.11+
+- **Cloud Account:** [AWS Account](https://aws.amazon.com/) (IoT Core, Lambda, DynamoDB, S3, QuickSight)
+- **Local Dev Stack:** [Python 3.10+](https://www.python.org/), [Docker Desktop](https://www.docker.com/), [Node.js 18+](https://nodejs.org/)
 
-### 2. Microcontroller Firmware Flash (ESP32-S3)
+### 2. Microcontroller Firmware Flash (ESP32-S3 Sensor Node)
 ```bash
 # Clone the project repository
 git clone https://github.com/AnkitPandit120/SIH_Swarnim.git
 cd SIH_Swarnim/firmware
 
-# Build firmware and flash to USB-connected node
+# Build firmware and flash to USB-connected ESP32-S3 node
 pio run --target upload
 pio device monitor
 ```
 
-### 3. Backend & GIS Dashboard Launch
+### 3. Raspberry Pi 5 Edge Hub Setup (Tier 2 Regional Hub)
 ```bash
-# Spin up TimescaleDB, PostGIS, MQTT Broker, and FastAPI backend
+# On the Raspberry Pi 5 host
+cd SIH_Swarnim/edge_hub
+
+# Install edge runtime dependencies (TFLite runtime, RPi.GPIO, store-and-forward queue)
+pip install -r requirements.txt
+
+# Launch edge intelligence service (TinyML inference, siren actuation & microSD buffer)
+python main_edge_daemon.py
+```
+
+### 4. Cloud Ingestion & GIS Dashboard Launch
+```bash
+# Option A: Connect Edge Hub to AWS Cloud
+cd ../cloud
+# Deploy serverless pipeline (IoT Core Rules + Lambda + DynamoDB)
+aws cloudformation deploy --template-file template.yaml --stack-name swarnim-iot-stack
+
+# Option B: Run local on-premise emergency control room
 cd ../backend
 docker-compose up -d
 
