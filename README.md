@@ -1,4 +1,4 @@
-# 🌿 SWARNIM — Environmental Intelligence Network
+# SWARNIM — Environmental Intelligence Network
 
 <div align="center">
 
@@ -12,13 +12,13 @@
 
 **Decentralized, Solar-Autonomous Edge-AI Multi-Hazard Early Warning Network for India**
 
-[System Architecture](#-high-level-system-architecture) • [Competitive Hegemony](#-competitive-hegemony-why-swarnim-outperforms-existing-products) • [Two-Tier Compute](#-two-tier-compute-architecture) • [Edge & Cloud Partition](#-functional-partition-matrix) • [Hardware & BOM](#-hardware-components--bill-of-materials) • [Power Management](#-dynamic-power-priority-management) • [Quickstart](#-getting-started) • [References](#-references--standards-bibliography)
+[System Architecture](#high-level-system-architecture) • [Competitive Hegemony](#competitive-hegemony-why-swarnim-outperforms-existing-products) • [Two-Tier Compute](#two-tier-compute-architecture) • [Edge & Cloud Partition](#functional-partition-matrix) • [Hardware & BOM](#hardware-components--bill-of-materials) • [Power Management](#dynamic-power-priority-management) • [Quickstart](#getting-started) • [References](#references--standards-bibliography)
 
 ---
 
 </div>
 
-## 📌 Executive Summary
+## Executive Summary
 
 India experiences catastrophic, rapidly escalating environmental hazards: urban flash floods, Himalayan landslides, forest fires in Uttarakhand and the Northeast, toxic industrial leaks, and dangerous winter smog. While national agencies (**NDMA, IMD, CPCB, and ISRO**) provide vital macro-level meteorological forecasting, disasters strike at hyper-local coordinates where terrestrial communication and power infrastructure fail first.
 
@@ -34,7 +34,7 @@ Instead of blindly streaming heavy raw sensor data over fragile cellular links, 
 
 ---
 
-## 📋 SIH 2026 Problem Alignment
+## SIH 2026 Problem Alignment
 
 | Attribute | Official Problem Details |
 | :--- | :--- |
@@ -48,7 +48,7 @@ Instead of blindly streaming heavy raw sensor data over fragile cellular links, 
 
 ---
 
-## 📊 Key Highlights & Technical Metrics
+## Key Technical Metrics
 
 ```text
   ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────┐
@@ -57,42 +57,23 @@ Instead of blindly streaming heavy raw sensor data over fragile cellular links, 
   └─────────────────┘   └─────────────────┘   └─────────────────┘   └─────────────────┘
 ```
 
-- **⚡ Zero-Grid Autonomy:** Custom MPPT solar harvesting paired with thermally stable **LiFePO4 chemistry** (survives 0°C to 60°C Indian field temperatures).
-- **🛡️ Deterministic Safety + AI Ensemble:** Parallel execution of hard physical safety rules alongside quantized neural models eliminates false negatives while providing transparent decision explainability.
-- **📡 Bandwidth & Radio Discipline:** 99.8% reduction in channel congestion by streaming event-driven 32-byte binary payloads instead of round-the-clock sensor telemetry.
-- **🔄 Zero Data Loss (Store-and-Forward):** MicroSD and SPI Flash circular buffers preserve all telemetry during total communication blackouts and synchronize automatically upon reconnection.
-- **🚨 Instant Local Warning:** Direct actuation of 110 dB sirens and strobe lights within milliseconds without waiting for cloud confirmation.
+- **Zero-Grid Autonomy:** Custom MPPT solar harvesting paired with thermally stable **LiFePO4 chemistry** (survives 0°C to 60°C Indian field temperatures).
+- **Deterministic Safety + AI Ensemble:** Parallel execution of hard physical safety rules alongside quantized neural models eliminates false negatives while providing transparent decision explainability.
+- **Bandwidth & Radio Discipline:** 99.8% reduction in channel congestion by streaming event-driven 32-byte binary payloads instead of round-the-clock sensor telemetry.
+- **Zero Data Loss (Store-and-Forward):** MicroSD and SPI Flash circular buffers preserve all telemetry during total communication blackouts and synchronize automatically upon reconnection.
+- **Instant Local Warning:** Direct actuation of 110 dB sirens and strobe lights within milliseconds without waiting for cloud confirmation.
 
 ---
 
-## 🏆 Competitive Hegemony: Why SWARNIM Outperforms Existing Products
+## Competitive Hegemony: Why SWARNIM Outperforms Existing Products
 
-Most early warning and environmental monitoring projects fail during live disaster events because they assume reliable 4G cellular service, uninterrupted AC grid power, clean sensor inputs, and cloud servers handling all analytics. When actual cloudbursts, glacial lake outbursts, or flash floods strike, terrestrial power and cell towers fail first.
-
-SWARNIM is systematically benchmarked across four competing market paradigms:
+SWARNIM is engineered to overcome the fundamental vulnerabilities found across competing market paradigms:
 1. **Legacy Industrial Hydrometric Stations:** Multi-lakh telemetry setups (Campbell Scientific CR1000X, Sutron / OTT HydroMet, YSI).
 2. **Commercial Smart-City IoT Nodes:** Typical commercial IoT gadgets (Libelium Waspmote, Milesight IoT, cellular data loggers).
 3. **Macro-Meteorological Forecasting:** Centralized governmental platforms (IMD Doppler Weather Radar, ISRO MOSDAC, CWC flood forecasts).
 4. **Generic DIY / Hackathon Prototypes:** Single-tier Arduino/Raspberry Pi assemblies with cloud-dependent scripts.
 
-### 📊 Exhaustive Benchmark Matrix
-
-| Feature / Evaluation Metric | Legacy Industrial Stations (Campbell / OTT) | Commercial IoT Nodes (Libelium / Milesight) | Macro Gov Systems (CWC / IMD Radar) | Generic Hackathon Prototypes | **SWARNIM (Our Solution)** |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Unit Capital Cost (CapEx)** | ₹5,00,000 – ₹15,00,000+ ($6k–$18k) | ₹65,000 – ₹1,80,000 ($800–$2.2k) | Crores (Mega-infrastructure) | ₹5,000 – ₹12,000 (Fragile build) | **₹3,360 ($40) Node / ₹21,700 ($260) Hub** |
-| **Intelligence Location** | None (Static data loggers) | Remote Cloud Servers (No edge AI) | Supercomputer / Mainframe | Cloud (Server-side scripts) | **Hierarchical 2-Tier Edge AI (ESP32 + RPi 5)** |
-| **Detection-to-Alert Latency** | 30 minutes to 2 hours (Batch upload) | 15 to 45 seconds (Network bound) | 1 to 4 hours (Model refresh cycle)| 10 to 30 seconds | **< 1.2 seconds (Immediate local siren & strobe)** |
-| **Grid & Cellular Blackout** | ⚠️ Transmit drops; local log only | ❌ Total system disconnect & failure | ❌ Terrestrial communication drops | ❌ Complete system shutdown | **✅ 100% Autonomous (LoRa Mesh + Store-&-Forward)** |
-| **Immediate Local Warning** | ❌ None (Requires central operator)| ❌ None (App push notification only)| ❌ Macro siren (Hours later) | ❌ Micro buzzer test only | **✅ 110 dB Industrial Siren + Strobe LED** |
-| **False-Alarm Mitigation** | Heuristic single-point float switches| Static single-threshold trips | Coarse-grid radar projection | Unfiltered raw ADC values | **Dual-Gated: Physics Bounds + TinyML Fusion** |
-| **Power Profile & Sleep** | 50 mA – 150 mA continuous draw | 25 µA – 50 µA sleep | Grid / Diesel Generator dependent | 120 mA – 350 mA (poor power states)| **< 14.2 µA Ultra-Low-Power Sleep (TPS22919)** |
-| **Battery Chemistry & Life** | Sealed Lead Acid (2–3 yr life @ 45°C) | Lithium Thionyl Chloride (LiSOCl2) | Lead Acid / Inverter banks | Li-Ion / NMC 18650 (Fire hazard)| **LiFePO4 (2,000+ cycles, stable to 60°C)** |
-| **Data Loss During Outage** | Partial (Limited logger memory) | Total (Packets dropped in flight) | Statistical interpolation only | Total data wipe | **Zero Loss: Industrial MicroSD + SPI Flash Buffer** |
-| **Spatial Saturation Density**| Extremely Sparse (1 site / 30–50 km)| Moderate (Cost constrained) | Macro only (1 radar / 150–200 km) | Single demo unit | **Hyper-Dense: 50 nodes per 15 km river stretch** |
-
----
-
-### 🛡️ The 5 Unfair Advantages of SWARNIM
+### Core Architectural Advantages
 
 #### 1. Frugal Panchayat Economics (95% CapEx Reduction)
 * Standard hydro-meteorological stations cost over **₹5,00,000 to ₹15,00,000** per station. As a result, states can only afford to monitor major reservoirs and barrage walls, leaving thousands of tributary rivers, mountain nullahs, and rural culverts completely unmonitored.
@@ -123,7 +104,7 @@ SWARNIM is systematically benchmarked across four competing market paradigms:
 
 ---
 
-## 🏗️ High-Level System Architecture
+## High-Level System Architecture
 
 ```mermaid
 graph TD
@@ -153,7 +134,7 @@ graph TD
         AI["On-Device TinyML / Anomaly Detection"]
         SCORE["Local Hazard Scoring & Severity Arbitrator"]
         BUFFER["Offline Store-and-Forward Buffer (microSD)"]
-        SIREN["🚨 Local Alert Actuator (110dB Siren + Strobe LED)"]
+        SIREN["Local Alert Actuator (110dB Siren + Strobe LED)"]
     end
 
     subgraph GATEWAY["5. Gateway Backhaul"]
@@ -191,7 +172,7 @@ graph TD
 
 ---
 
-## 💻 Two-Tier Compute Architecture
+## Two-Tier Compute Architecture
 
 To balance cost, power consumption, and advanced AI requirements across vast geographic corridors, SWARNIM implements a **hierarchical edge compute paradigm**:
 
@@ -211,7 +192,7 @@ To balance cost, power consumption, and advanced AI requirements across vast geo
 
 ---
 
-## 🔄 Architecture Evolution & Cost Optimization
+## Architecture Evolution & Cost Optimization
 
 A fundamental challenge in regional disaster networks is balancing compute capability against unit procurement cost and power availability. Earlier high-compute paradigms envisioned placing heavy compute platforms (such as NVIDIA Jetson or industrial x86 boxes) at every single sensor outpost. However, this incurs prohibitive field costs (~$400–$600+ per site), continuous 15W–30W power drains, and bulky solar arrays that make dense spatial deployment unfeasible across India's thousands of remote river basins and forest ridges.
 
@@ -252,7 +233,7 @@ CURRENT SWARNIM ARCHITECTURE (Cost-Optimized, Power-Lean & Resilient)
 
 ---
 
-## 📋 Functional Partition Matrix
+## Functional Partition Matrix
 
 SWARNIM establishes a strict functional contract across all layers from physical transduction to cloud dashboard:
 
@@ -272,7 +253,7 @@ SWARNIM establishes a strict functional contract across all layers from physical
 
 ---
 
-## ⚡ Dynamic Power Priority Management
+## Dynamic Power Priority Management
 
 In disaster environments, monsoon deluges and wildfire smoke can occlude solar panels for days. SWARNIM implements an active multi-tiered power triage policy:
 
@@ -286,7 +267,7 @@ In disaster environments, monsoon deluges and wildfire smoke can occlude solar p
                ▼                                                         ▼
     BATTERY HEALTHY (> 40% SoC)                               LOW BATTERY (< 40% SoC)
     • All sensors active (level, rain, gas, PM)               • Non-critical sensors powered OFF via TPS22919
-    • Full TinyML inference & feature logs                    • Duty cycles extended (sleep 60s ➔ 300s)
+    • Full TinyML inference & feature logs                    • Duty cycles extended (sleep 60s -> 300s)
     • Normal telemetry cadence                                • Disable cameras & auxiliary telemetry
     • Siren & strobe ready in standby                         • Power prioritized strictly for:
                                                                   1. Critical hazard sensors (Water/Rain)
@@ -299,7 +280,7 @@ In disaster environments, monsoon deluges and wildfire smoke can occlude solar p
 
 ---
 
-## 💾 Network Resilience & Store-and-Forward Buffer
+## Network Resilience & Store-and-Forward Buffer
 
 Communication outages are common during extreme disasters. SWARNIM is architected so network loss never halts detection or destroys data:
 
@@ -335,30 +316,30 @@ Communication outages are common during extreme disasters. SWARNIM is architecte
 
 ---
 
-## 🧩 Modular Hazard Node Profiles
+## Modular Hazard Node Profiles
 
 SWARNIM does **not** force a one-size-fits-all hardware rig. Instead, a standardized baseboard hosts interchangeable sensor daughter modules based on terrain:
 
 | Node Type | Primary Sensors | Typical Deployment Site | Key Target Event |
 | :--- | :--- | :--- | :--- |
-| **🌊 Flood Node (Flagship Prototype)** | Waterproof Ultrasonic (JSN-SR04T) + Tipping-Bucket Rain Gauge + SHT31 | River banks, bridges, culverts, urban stormwater drains | Flash floods, river crest surges, cloudburst runoff |
-| **🔥 Forest Fire Node** | IR Flame Sensor + Photoelectric Smoke + Optical PM2.5 + Ambient Temp/RH | Forest perimeters, wildlife sanctuaries, fire-break ridges | Wildfire inception, smoldering biomass, canopy flame |
-| **⛰️ Landslide Node** | Capacitive Soil Moisture + 3-Axis MEMS Inclinometer (MPU6050) + Vibration | Hillside road-cuts, Ghat roads, Himalayan slopes | Slope tilt shift, earth saturation, debris flow precursors |
-| **🏭 Industrial & Air Quality** | Optical PMS5003 + Multi-Gas Array (MQ-135, MQ-7, CO, Ammonia) | Chemical industrial estates, highway intersections, dense slums | Toxic gas release, hazardous AQI smog episodes |
-| **💧 Water Quality Node** | Industrial pH Probe + Turbidity + TDS / Electrical Conductivity | Reservoirs, lakes, industrial effluent discharge points | Chemical dumping, post-flood potable water contamination |
+| **Flood Node (Flagship Prototype)** | Waterproof Ultrasonic (JSN-SR04T) + Tipping-Bucket Rain Gauge + SHT31 | River banks, bridges, culverts, urban stormwater drains | Flash floods, river crest surges, cloudburst runoff |
+| **Forest Fire Node** | IR Flame Sensor + Photoelectric Smoke + Optical PM2.5 + Ambient Temp/RH | Forest perimeters, wildlife sanctuaries, fire-break ridges | Wildfire inception, smoldering biomass, canopy flame |
+| **Landslide Node** | Capacitive Soil Moisture + 3-Axis MEMS Inclinometer (MPU6050) + Vibration | Hillside road-cuts, Ghat roads, Himalayan slopes | Slope tilt shift, earth saturation, debris flow precursors |
+| **Industrial & Air Quality** | Optical PMS5003 + Multi-Gas Array (MQ-135, MQ-7, CO, Ammonia) | Chemical industrial estates, highway intersections, dense slums | Toxic gas release, hazardous AQI smog episodes |
+| **Water Quality Node** | Industrial pH Probe + Turbidity + TDS / Electrical Conductivity | Reservoirs, lakes, industrial effluent discharge points | Chemical dumping, post-flood potable water contamination |
 
 ---
 
-## 🧰 Hardware Components & Bill of Materials
+## Hardware Components & Bill of Materials
 
 ### Tier 1: Flagship Flood Sensor Node Reference Design (Field Production BOM)
 
 > [!TIP]
 > **Complete Production PCB Design Package Available:**
-> - 📄 **Engineering Guide & Verified BOM:** [HARDWARE_GUIDE.md](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/HARDWARE_GUIDE.md)
-> - 📐 **Interactive Schematic Diagram:** [schematic_diagram.svg](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/schematic_diagram.svg)
-> - 🖥️ **2D Board Layout Preview:** [pcb_layout_preview.svg](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/pcb_layout_preview.svg)
-> - 🗂️ **KiCad 7/8 Project Files:** [hardware/flood_node_pcb/](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/) (`.kicad_pro`, `.kicad_sch`, `.kicad_pcb`)
+> - **Engineering Guide & Verified BOM:** [HARDWARE_GUIDE.md](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/HARDWARE_GUIDE.md)
+> - **Interactive Schematic Diagram:** [schematic_diagram.svg](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/schematic_diagram.svg)
+> - **2D Board Layout Preview:** [pcb_layout_preview.svg](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/pcb_layout_preview.svg)
+> - **KiCad 7/8 Project Files:** [hardware/flood_node_pcb/](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/) (`.kicad_pro`, `.kicad_sch`, `.kicad_pcb`)
 
 | Component | Part / Model | Interface | Unit Cost (INR) | Function |
 | :--- | :--- | :--- | :---: | :--- |
@@ -381,7 +362,6 @@ SWARNIM does **not** force a one-size-fits-all hardware rig. Instead, a standard
 Each regional cluster hub manages 20–50 distributed Tier 1 sensor nodes across an entire sub-catchment or river stretch:
 
 | Component | Part / Model | Interface | Unit Cost (INR) | Function |
-| :--- | :--- | :--- | :---: | :--- |
 | **Edge Compute Host** | Raspberry Pi 5 (4GB / 8GB LPDDR4X, Quad Cortex-A76) | PCIe, USB 3.0, GPIO | ₹6,200 | On-device TinyML inference, anomaly detection & local hazard scoring |
 | **LoRaWAN Gateway HAT** | Waveshare SX1302 / SX1303 8-Channel Concentrator (IN865) | SPI / GPIO | ₹5,800 | Multi-node concurrent packet reception (12–15 km radius) |
 | **Store & Forward Storage** | SanDisk Industrial High-Endurance 64GB MicroSD (A2/V30) | SDIO | ₹750 | Local circular FIFO buffer; guarantees zero data loss in blackouts |
@@ -395,7 +375,7 @@ Each regional cluster hub manages 20–50 distributed Tier 1 sensor nodes across
 
 ---
 
-## 🧠 Dual-Stage Safety & TinyML Pipeline
+## Dual-Stage Safety & TinyML Pipeline
 
 To ensure human-life safety, **SWARNIM never relies on machine learning as an opaque single point of failure**.
 
@@ -403,7 +383,7 @@ To ensure human-life safety, **SWARNIM never relies on machine learning as an op
                   Multi-Sensor Stream (Level, Rain, Temp, Gas)
                                        │
                                        ▼
-                       Preprocessing & Noise Calibration
+                        Preprocessing & Noise Calibration
                                        │
                     ┌──────────────────┴──────────────────┐
                     ▼                                     ▼
@@ -426,7 +406,7 @@ To ensure human-life safety, **SWARNIM never relies on machine learning as an op
 
 ---
 
-## 📦 Ultra-Compact 32-Byte Alert Packet Structure
+## Ultra-Compact 32-Byte Alert Packet Structure
 
 Transmitting verbose JSON over sub-GHz LoRaWAN drains battery and congests regional frequencies. SWARNIM serializes all threat intelligence into a high-density 32-byte binary struct:
 
@@ -472,7 +452,7 @@ Transmitting verbose JSON over sub-GHz LoRaWAN drains battery and congests regio
 
 ---
 
-## 📡 Resilient Communication Architecture
+## Resilient Communication Architecture
 
 1. **Normal State (LoRaWAN Star Topology):** The node uplinks directly to a regional solar-powered LoRaWAN Gateway operating on Indian ISM bands (`IN865–867 MHz`).
 2. **Gateway Obstructed (LoRa Ad-Hoc Peer Relay):** If the primary gateway is damaged or masked by terrain, the node shifts to a peer-to-peer relay mode, bouncing packets across neighboring nodes (with hop counters and de-duplication) until reaching a functioning gateway.
@@ -480,7 +460,7 @@ Transmitting verbose JSON over sub-GHz LoRaWAN drains battery and congests regio
 
 ---
 
-## 🗺️ Deployment Roadmap & National Scale
+## Deployment Roadmap & National Scale
 
 ```mermaid
 gantt
@@ -504,7 +484,7 @@ gantt
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 SIH_SWARNIM/
@@ -546,7 +526,7 @@ SIH_SWARNIM/
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Prerequisites
 - **Sensor Node Toolchain:** [PlatformIO IDE](https://platformio.org/) or [ESP-IDF v5.1+](https://docs.espressif.com/)
@@ -597,7 +577,7 @@ npm run dev
 
 ---
 
-## 🎯 Target UN Sustainable Development Goals (SDGs)
+## Target UN Sustainable Development Goals (SDGs)
 
 <div align="center">
 
@@ -609,22 +589,22 @@ npm run dev
 
 ---
 
-## 👥 Team Swarnim
+## Team Swarnim
 
 | Name | Role | Focus Area | Contact |
 | :--- | :--- | :--- | :--- |
-| **[Member Name]** | Team Lead / Embedded AI | TinyML Quantization & Dual Decision Engine | [@GitHub](https://github.com) |
-| **[Member Name]** | Embedded Hardware Lead | Circuit Schematics, MPPT Power & Sensor Rig | [@GitHub](https://github.com) |
-| **[Member Name]** | RF & Network Engineer | LoRaWAN Protocol & Ad-Hoc Peer Relay | [@GitHub](https://github.com) |
-| **[Member Name]** | Full Stack GIS Developer | Real-Time GIS Heatmaps & Web Control Room | [@GitHub](https://github.com) |
-| **[Member Name]** | Backend & Data Engineer | Spatial Correlation Engine & CAP Alerting | [@GitHub](https://github.com) |
-| **[Member Name]** | Domain & UI/UX Specialist | Disaster Management Protocols & Field App | [@GitHub](https://github.com) |
+| **[Member Name]** | Team Leader & Hardware Lead | System Architecture, Edge Hub Integration & Hardware Design | [@GitHub](https://github.com) |
+| **[Member Name]** | Presenter & Domain Research Lead | Disaster Management Frameworks, Field Research & Pitch Presentation | [@GitHub](https://github.com) |
+| **[Member Name]** | Hardware Management Lead | Component Sourcing, PCB Fabrication, Power Supply & Enclosure Assembly | [@GitHub](https://github.com) |
+| **[Member Name]** | Presentation Design & Documentation | Pitch Deck Visuals, UI/UX Concepts, Diagrams & Technical Documentation | [@GitHub](https://github.com) |
+| **[Member Name]** | Node Software & Research Engineer | ESP32-S3 FreeRTOS Firmware, TinyML Inference & LoRa Protocol Stack | [@GitHub](https://github.com) |
+| **[Member Name]** | Sensor Research & Optimization | Transducer Selection, ADC Calibration, Noise Filtering & Power Optimization | [@GitHub](https://github.com) |
 
 ---
 
-## 📜 References & Standards Bibliography
+## References & Standards Bibliography
 
-### 🏛️ Government & Disaster Management Frameworks
+### Government & Disaster Management Frameworks
 1. **Smart India Hackathon (SIH) 2026:** Problem Statement ID #26178 (*AI Environmental Early-Warning Network*), Ministry of Education Innovation Cell & Qualcomm Inc.
 2. **National Disaster Management Authority (NDMA):** *National Disaster Management Guidelines — Management of Floods & Urban Flooding*, Government of India ([ndma.gov.in](https://www.ndma.gov.in)).
 3. **NDMA CAP Platform (Project Sachet):** *Implementation of Common Alerting Protocol based Integrated Alert System in India*, NDMA & Centre for Development of Telematics (C-DOT) ([sachet.ndma.gov.in](https://sachet.ndma.gov.in)).
@@ -632,13 +612,13 @@ npm run dev
 5. **World Meteorological Organization (WMO):** *WMO-No. 1022: Guide to Hydrological Practices — Volume I: Hydrology From Measurement to Information*, World Meteorological Organization, Geneva.
 6. **Central Water Commission (CWC):** *Standard Operating Procedure for Flood Forecasting and Early Warning Across Interstate River Basins*, Ministry of Jal Shakti, Government of India.
 
-### 🔬 Academic Literature & TinyML Edge AI
+### Academic Literature & TinyML Edge AI
 7. **TinyML on Ultra-Low-Power Microcontrollers:** David, R., Duke, P., Jain, A., Janapa Reddi, V., et al. (2021). *TensorFlow Lite Micro: Embedded Machine Learning on TinyML Systems*. Proceedings of Machine Learning and Systems (MLSys), [arXiv:2010.08678](https://arxiv.org/abs/2010.08678).
 8. **IoT Flash Flood Early Warning Systems:** Ray, P. P., et al. (2020). *IoT-Based Flood Monitoring and Early Warning System: A Systematic Review and Case Study of Himalayan River Catchments*. IEEE Transactions on Systems, Man, and Cybernetics: Systems, 51(11), 7012–7025.
 9. **Decentralized Multi-Sensor Streamflow Forecasting:** Sit, M., & Demir, I. (2019). *Decentralized Deep Learning for Streamflow Forecasting Across Regional Catchments*. Journal of Hydrology, 575, 742–753.
 10. **Microcontroller Model Quantization:** Warden, P., & Situnayake, D. (2019). *TinyML: Machine Learning with TensorFlow Lite on Arduino and Ultra-Low-Power Microcontrollers*. O'Reilly Media.
 
-### ⚡ Hardware, Radio & Battery Engineering Standards
+### Hardware, Radio & Battery Engineering Standards
 11. **Indian Sub-GHz ISM Band Allocation:** *National Frequency Allocation Plan (NFAP 2022)*, Wireless Planning & Coordination (WPC) Wing, Ministry of Communications, Government of India (De-licensed 865–867 MHz frequency band).
 12. **Semtech LoRa Specifications:** *AN1200.22: LoRa Modulation Basics and IN865 Regional Regulatory Compliance Guidelines*, Semtech Corporation.
 13. **LiFePO4 Safety in Extreme Tropical Climates:** *Bureau of Indian Standards (BIS) IS 16046 / IEC 62133: Secondary cells and batteries containing alkaline or other non-acid electrolytes for portable sealed applications*.
@@ -646,3 +626,4 @@ npm run dev
     - *BQ24650 Multi-Chemistry High-Efficiency Synchronous MPPT Buck Battery Charger Design Guide* (TI Application Report SLUA583).
     - *TPS22919 5.5V 1.5A Ultra-Low-Leakage Load Switch with Output Discharge* (TI Datasheet SLVSDV2).
 15. **AWS IoT Lens:** *AWS Well-Architected Framework: IoT Lens for Resilient Connected Systems and Disconnected Edge Operations*, Amazon Web Services ([docs.aws.amazon.com/wellarchitected/latest/iot-lens](https://docs.aws.amazon.com/wellarchitected/latest/iot-lens/)).
+
