@@ -1,19 +1,25 @@
 # 🛠️ Flagship Flood / Water-Level Node — Hardware Engineering Guide
 
-**Project:** Environmental Intelligence Network (EIN)  
+**Project:** SWARNIM (Smart Warning & Resilient Network for Intelligence & Monitoring)  
 **SIH 2026 Problem Statement ID:** #26178  
 **Organization:** Qualcomm Inc.  
 **Category:** Hardware (IoT Transduction, Embedded Systems & Edge AI)  
-**Board Model:** `EIN-FLOOD-NODE-V1`  
+**Board Model:** `SWARNIM-FLOOD-NODE-V1` (Tier 1 Low-Cost Distributed Sensor Node)  
 **Revision:** `v1.0-RC1`
 
 ---
 
-## 1. System Overview
+## 1. System Overview & Hierarchical Architecture
 
-The **EIN Flood Node** is a specialized, solar-autonomous field sensing unit engineered for early detection of flash floods, river surges, and urban stormwater drain overflows.
+The **SWARNIM Flood Node** is a specialized, solar-autonomous field sensing unit engineered for mass deployment across flood-prone riverbanks, mountain streams, and urban stormwater canals.
 
-The hardware couples an **ESP32-S3-WROOM-1** edge processor with a **Semtech SX1276** sub-GHz LoRa radio, high-efficiency **TI BQ24650 MPPT solar charge controller**, thermally resilient **LiFePO4 battery pack**, and ruggedized environmental transducers (**JSN-SR04T waterproof ultrasonic** and **tipping-bucket rain gauge**).
+Operating as a **Tier 1 Low-Cost Sensor Node** in SWARNIM's hierarchical architecture, this board couples an **ESP32-S3-WROOM-1** edge processor with a **Semtech SX1276 / SX1262** sub-GHz LoRa radio, a high-efficiency **TI BQ24650 MPPT solar charge controller**, a thermally resilient **LiFePO4 battery pack**, and ruggedized environmental transducers (**JSN-SR04T waterproof ultrasonic** and **tipping-bucket rain gauge**).
+
+### Role in the Network
+- **Local Transduction & Gating:** Performs precision distance and rainfall sampling while cutting power to unused sensors via high-side **TI TPS22919 load switches**.
+- **Deterministic Physical Safety:** Executes instant hardware threshold rules (e.g. rate-of-rise > 20 cm/hr) independently of network availability.
+- **Resilient LoRa Uplink:** Broadcasts high-density 32-byte binary telemetry packets over **Sub-GHz LoRa (IN865 865–867 MHz)** to neighboring peer nodes and the **Tier 2 Raspberry Pi 5 Regional Edge Hub**.
+- **Zero Data Loss:** If RF connectivity is lost, samples are logged to internal SPI Flash circular buffers and re-transmitted once the link is re-established.
 
 ### Visual Diagrams
 - **Schematic Architecture:** [`schematic_diagram.svg`](file:///Users/ankit/Projects/SIH_SWARNIM/hardware/flood_node_pcb/schematic_diagram.svg)
@@ -104,11 +110,20 @@ All components are standard off-the-shelf parts available from **LCSC, DigiKey, 
 - **LoRa TX (every 10 min):** $125\,\text{mA} \times \frac{0.25}{600} \times 24\,\text{h} \approx 1.25\,\text{mAh/day}$
 - **Total Daily Energy Consumption:** $\approx \mathbf{16.39\,\text{mAh/day}}$ (or $\sim 54\,\text{mWh/day}$).
 
-### Zero-Sunlight Battery Autonomy
+### Zero-Sunlight Battery Autonomy & Dynamic Power Priority Management
+
 With a **3.2V 6400mAh LiFePO4 battery pack** (2x 3200mAh in parallel):
 $$\text{Autonomy Days} = \frac{6400\,\text{mAh} \times 0.85\,\text{efficiency}}{16.39\,\text{mAh/day}} \approx \mathbf{331\text{ Days of Continuous Operation!}}$$
 
-Even during a severe monsoon event with **continuous warning polling (every 5 seconds) and emergency sirens active**, the pack sustains **72+ hours of complete autonomy without daylight**.
+Even during a severe monsoon event with **continuous warning polling (every 5 seconds)**, the pack sustains **72+ hours of complete autonomy without daylight**.
+
+#### ⚡ Active Load Shedding Policy
+The firmware monitors battery state of charge (SoC) via the on-board TI ADS1115 ADC:
+1. **Normal Operation (SoC > 40%):** Standard 60-second sampling cycle, full ultrasonic burst, rain accumulation tracking, ambient temp/RH readings, and periodic health heartbeats.
+2. **Low-Battery Reserve Mode (SoC ≤ 40%):** 
+   - Non-critical sensor rails are completely isolated by pulling `SENSOR_PWR_EN` (GPIO 7) low, shutting off the 5V boost converter and auxiliary sensors via the **TI TPS22919 load switch**.
+   - Sleep intervals expand to 300 seconds.
+   - Power is strictly conserved for **rain gauge interrupt pulse counting**, **critical flood stage threshold trip**, and **emergency LoRa uplink broadcasts**.
 
 ---
 
@@ -137,8 +152,8 @@ Even during a severe monsoon event with **continuous warning polling (every 5 se
                      │   IP66 Weatherproof   │
                      │    Polycarbonate      │
                      │    Enclosure Box      │
-                     │  (Contains EIN PCB &  │
-                     │   LiFePO4 Battery)    │
+                     │ (Contains SWARNIM PCB │
+                     │  & LiFePO4 Battery)   │
                      └───────────┬───────────┘
                                  │
                    ┌─────────────┴─────────────┐
@@ -155,7 +170,7 @@ Even during a severe monsoon event with **continuous warning polling (every 5 se
    * Measure the vertical distance $H_{\text{ref}}$ from the transducer face to the river bed.
    * Write $H_{\text{ref}}$ to the board configuration via USB-C terminal:
      ```bash
-     ein-config --set-datum 4.500 --node-id EIN-FLD-0042
+     swarnim-config --set-datum 4.500 --node-id SWARNIM-FLD-0042
      ```
    * Live water level is automatically calculated as:
      $$\text{Water Level} = H_{\text{ref}} - D_{\text{measured}}$$
@@ -181,3 +196,41 @@ Follow this checklist before shipping each production node:
   - `[OK] ADS1115 detected at 0x48 (Battery: 3.32V)`
   - `[OK] JSN-SR04T Ping: 124.5 cm`
   - `[OK] SX1276 LoRa Initialized @ 866.5 MHz (RSSI: -42 dBm)`
+
+---
+
+## 8. Tier 2 Regional Edge Hub (Raspberry Pi 5) Hardware Architecture
+
+To coordinate clusters of 20–50 Tier 1 sensor nodes across a sub-catchment, the **Tier 2 Regional Edge Hub** provides localized AI inference, store-and-forward buffering, and community alarm actuation.
+
+```text
+                                  +12V Solar MPPT Bus
+                                          │
+            ┌─────────────────────────────┼─────────────────────────────┐
+            ▼                             ▼                             ▼
+   [TI TPS54531 12V➔5V 5A]       [12V 110dB Siren & Strobe]    [12.8V 12Ah LiFePO4 BMS]
+            │                             ▲
+            ▼                             │ MOSFET (IRLZ44N)
+     Raspberry Pi 5                       │
+   (Quad Cortex-A76) ───[GPIO 18 / PWM]───┘
+            │
+            ├── SPI ──> Waveshare SX1302 / SX1303 LoRaWAN Gateway HAT (IN865)
+            │
+            ├── SDIO ──> 64GB Industrial MicroSD (Store-and-Forward FIFO Queue)
+            │
+            └── Ethernet / LTE Modem ──> AWS IoT Core / Command Center
+```
+
+### Key Hub Hardware Specifications:
+1. **Single Board Computer:** Raspberry Pi 5 (4GB or 8GB LPDDR4X) running Debian Bookworm 64-bit with active fan cooler.
+2. **LoRaWAN Concentrator HAT:** Waveshare SX1302 / SX1303 with GPS sync, operating on Indian ISM band **IN865 (865–867 MHz)** for multi-channel concurrent demodulation across 20–50 field nodes.
+3. **Local Alarm Actuation Stage:**
+   - **Actuator:** 12V 110 dB Industrial Piezo Siren + High-Intensity Red LED Strobe.
+   - **Driver Circuit:** Logic-level N-channel MOSFET (**IRLZ44N** or **AO3400**) switched via RPi GPIO 18, with 1N4007 flyback diode protection across inductive siren terminals and 10 kΩ gate pull-down resistor.
+4. **Store-and-Forward MicroSD Buffer:**
+   - SanDisk Industrial 64GB A2/V30 MicroSD card formatted with ext4 journaled filesystem.
+   - Holds up to 6 months of raw high-frequency multi-node telemetry in an append-only circular queue during total cellular/satellite outages.
+5. **Power Subsystem:**
+   - 12V 50W Monocrystalline solar panel + 10A MPPT charge controller.
+   - 12.8V 12Ah LiFePO4 deep-cycle battery pack with integrated hardware Battery Management System (BMS).
+   - High-efficiency synchronous buck converter delivering continuous 5.1V @ 5.0A with transient headroom for peak AI compute loads.

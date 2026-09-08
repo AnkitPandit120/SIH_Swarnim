@@ -31,7 +31,7 @@
   </defs>
 
   <!-- Title / Dimensions Reference Header -->
-  <text x="50" y="40" fill="#58a6ff" font-size="20" font-weight="700">EIN FLOOD NODE — 4-LAYER PCB TOP-DOWN LAYOUT PREVIEW</text>
+  <text x="50" y="40" fill="#58a6ff" font-size="20" font-weight="700">SWARNIM TIER 1 SENSOR NODE — 4-LAYER PCB TOP-DOWN LAYOUT PREVIEW</text>
   <text x="50" y="62" fill="#8b949e" font-size="13">Dimensions: 100 mm × 80 mm | Scale 10:1 (1000px × 800px) | IP66 Enclosure Form Factor</text>
 
   <!-- PCB BOARD OUTLINE (1000 x 800) -->
@@ -57,7 +57,7 @@
     <circle cx="950" cy="750" r="16" fill="#0b0f14"/>
 
     <!-- Silkscreen Header on Board -->
-    <text x="500" y="45" fill="#ffffff" font-size="17" font-weight="700" text-anchor="middle" letter-spacing="1">EIN FLOOD SENSOR NODE | SIH 2026 PS #26178</text>
+    <text x="500" y="45" fill="#ffffff" font-size="17" font-weight="700" text-anchor="middle" letter-spacing="1">SWARNIM FLOOD SENSOR NODE | SIH 2026 PS #26178</text>
     <text x="500" y="70" fill="#c9d1d9" font-size="13" text-anchor="middle">QUALCOMM INC. | TEAM SWARNIM | REV 1.0-RC1</text>
 
     <!-- ==================== LEFT EDGE CONNECTORS ==================== -->

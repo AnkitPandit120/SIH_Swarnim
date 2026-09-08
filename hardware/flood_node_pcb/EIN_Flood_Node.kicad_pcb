@@ -7,11 +7,11 @@
   (paper "A4")
 
   (title_block
-    (title "EIN Flagship Flood / Water-Level Node - 4-Layer PCB")
-    (date "2026-09-05")
+    (title "SWARNIM Flagship Flood / Water-Level Node - 4-Layer PCB")
+    (date "2026-09-09")
     (rev "v1.0-RC1")
     (company "Team Swarnim | SIH 2026 Problem Statement 26178 (Qualcomm Inc.)")
-    (comment 1 "Dual-Tier Edge AI & LoRa Sensor Node | Board Size: 100mm x 80mm")
+    (comment 1 "Tier 1 Low-Cost Sensor Node | Board Size: 100mm x 80mm")
     (comment 2 "Stackup: L1:Signal/RF | L2:GND | L3:PWR(3V3/5V) | L4:Signal/GND")
   )
 
@@ -111,7 +111,7 @@
     (pad "1" thru_hole circle (at 0 0) (size 6.2 6.2) (drill 3.2) (layers *.Cu *.Mask) (net 1 "GND") (tstamp 56fde413-1359-4547-8d3d-f3f1355da903))
   )
 
-  (gr_text "EIN FLOOD SENSOR NODE | SIH 2026 PS #26178" (at 50 4.5) (layer "F.SilkS")
+  (gr_text "SWARNIM FLOOD SENSOR NODE | SIH 2026 PS #26178" (at 50 4.5) (layer "F.SilkS")
     (effects (font (size 1.8 1.8) (thickness 0.32) bold)) (tstamp 7efd380f-d4b2-4fdc-9069-66fa8ae2fd2c)
   )
   (gr_text "QUALCOMM INC. | TEAM SWARNIM | REV 1.0-RC1" (at 50 7.5) (layer "F.SilkS")
