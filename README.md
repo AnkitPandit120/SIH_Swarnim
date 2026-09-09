@@ -593,12 +593,12 @@ npm run dev
 
 | Name | Role | Focus Area | Contact |
 | :--- | :--- | :--- | :--- |
-| **[Member Name]** | Team Leader & Hardware Lead | System Architecture, Edge Hub Integration & Hardware Design | [@GitHub](https://github.com) |
-| **[Member Name]** | Presenter & Domain Research Lead | Disaster Management Frameworks, Field Research & Pitch Presentation | [@GitHub](https://github.com) |
-| **[Member Name]** | Hardware Management Lead | Component Sourcing, PCB Fabrication, Power Supply & Enclosure Assembly | [@GitHub](https://github.com) |
-| **[Member Name]** | Presentation Design & Documentation | Pitch Deck Visuals, UI/UX Concepts, Diagrams & Technical Documentation | [@GitHub](https://github.com) |
-| **[Member Name]** | Node Software & Research Engineer | ESP32-S3 FreeRTOS Firmware, TinyML Inference & LoRa Protocol Stack | [@GitHub](https://github.com) |
-| **[Member Name]** | Sensor Research & Optimization | Transducer Selection, ADC Calibration, Noise Filtering & Power Optimization | [@GitHub](https://github.com) |
+| **[Ankit Pandit]** | Team Leader & Hardware Lead | System Architecture, Edge Hub Integration & Hardware Design | [@GitHub](https://github.com/AnkitPandit120) |
+| **[Tanishq Gupta]** | Presenter & Domain Research Lead | Disaster Management Frameworks, Field Research & Pitch Presentation | [@GitHub](https://github.com/Shivgg1234) |
+| **[Yash Panpaliya]** | Hardware Management Lead | Component Sourcing, PCB Fabrication, Power Supply & Enclosure Assembly | [@GitHub](https://github.com/yashpanpaliya11) |
+| **[Riddhima Gupta]** | Presentation Design & Documentation | Pitch Deck Visuals, UI/UX Concepts, Diagrams & Technical Documentation | [@GitHub](https://github.com) |
+| **[Prachi Negi]** | Node Software & Research Engineer | ESP32-S3 FreeRTOS Firmware, TinyML Inference & LoRa Protocol Stack | [@GitHub](https://github.com/daprachinegi) |
+| **[Shyam Patel]** | Sensor Research & Optimization | Transducer Selection, ADC Calibration, Noise Filtering & Power Optimization | [@GitHub](https://github.com/shyam129-01) |
 
 ---
 
@@ -626,4 +626,3 @@ npm run dev
     - *BQ24650 Multi-Chemistry High-Efficiency Synchronous MPPT Buck Battery Charger Design Guide* (TI Application Report SLUA583).
     - *TPS22919 5.5V 1.5A Ultra-Low-Leakage Load Switch with Output Discharge* (TI Datasheet SLVSDV2).
 15. **AWS IoT Lens:** *AWS Well-Architected Framework: IoT Lens for Resilient Connected Systems and Disconnected Edge Operations*, Amazon Web Services ([docs.aws.amazon.com/wellarchitected/latest/iot-lens](https://docs.aws.amazon.com/wellarchitected/latest/iot-lens/)).
-
